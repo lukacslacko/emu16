@@ -1,0 +1,19 @@
+struct registers_t {
+  int a;
+  int b;
+  int c;
+  int d;
+}
+
+static registers_t registers;
+
+void sys$reset(int b, int c, int d) {
+}
+void sys$yield(int b, int c, int d) {
+}
+void sys$kill(int b, int c, int d) {
+}
+void sys$fork(int b, int c, int d) {
+}
+void sys$getpid(int b, int c, int d) {
+}
