@@ -1,3 +1,5 @@
+#include "proc.hm"
+
 struct pages_t {
   byte page[16];
 }
