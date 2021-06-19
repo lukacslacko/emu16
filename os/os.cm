@@ -14,7 +14,7 @@ void init_pages() {
   all_pages.available[0] = 3;
 }
 
-bool get_pages(int n_pages) {
+bool get_pages(int n_pages, int pid) {
   int p;
   int i;
   for (; p<256; ++p) {
@@ -25,7 +25,7 @@ bool get_pages(int n_pages) {
     byte l = 1<<(p&7);
     if (available[h] & l > 0) {
       all_pages.available[h] = all_pages.available[h] | l;
-      proc.pages[i] = p;
+      procs[pid].pages[i] = p;
       i++;
     }
   }
