@@ -32,10 +32,10 @@ bool get_pages(int n_pages) {
   return false;
 }
 
-bool free_pages() {
+bool free_pages(int pid) {
   int i;
   for (; i<16; ++i) {
-    byte p = proc.pages[i];
+    byte p = procs[pid].pages[i];
     byte h = p%8;
     byte l = 1<<(p&7);
     all_pages.available[h] = all_pages.available[h] & (~l);

@@ -10,10 +10,32 @@ struct registers_t {
 static registers_t registers;
 
 void sys$reset(int b, int c, int d) {
+  int i;
+  for (; i<128; ++i) {
+    procs[i].pid = -1;
+  }
 }
 void sys$yield(int b, int c, int d) {
+  int newpid = (proc.pid+1)&127;
+  for (;;) {
+    if (procs[newpid].pid != -1) {
+      proc = &procs[newpid];
+      return;
+    }
+    newpid = (newpid+1)&127;
+  }
 }
 void sys$kill(int b, int c, int d) {
+  int newpid = (proc.pid+1)&127;
+  procs[b].pid = -1;
+  free_pages(b);
+  for (;;) {
+    if (procs[newpid].pid != -1) {
+      proc = &procs[newpid];
+      return;
+    }
+    newpid = (newpid+1)&127;
+  }
 }
 void sys$fork(int b, int c, int d) {
 }
