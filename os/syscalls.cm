@@ -1,4 +1,6 @@
 #include "proc.hm"
+#include "physmem.hm"
+#include <string.hm>
 
 struct registers_t {
   int a;
@@ -20,12 +22,21 @@ void sys$yield(int b, int c, int d) {
   for (;;) {
     if (procs[newpid].pid != -1) {
       proc = &procs[newpid];
+      if(proc.new_child){
+        proc.new_child=false;
+        registers.a=0;
+      }else{
+        registers.a=-1;
+      }
       return;
     }
     newpid = (newpid+1)&127;
   }
 }
 void sys$kill(int b, int c, int d) {
+  if(b==0){
+    return;
+  }
   int newpid = (proc.pid+1)&127;
   procs[b].pid = -1;
   free_pages(b);
@@ -38,6 +49,49 @@ void sys$kill(int b, int c, int d) {
   }
 }
 void sys$fork(int b, int c, int d) {
+  int newpid;
+  for(;;){
+    if (procs[newpid].pid == -1) {
+      registers.a=newpid;
+      procs[newpid].new_child=true;
+      procs[newpid].pid=newpid;
+      procs[newpid].sp=proc.sp;
+      byte buffer[64];
+      byte h;
+      byte l;
+      int vp;
+      for(vp=2;vp<16;++vp){
+        if(proc.pages[vp]!=0){
+          int p;
+          bool fp;
+          int spi;
+          for (;p<256;++p) {
+            h=p>>3;
+            l=1<<(p&7);
+            if((all_pages.used[h]&l)==0){
+              fp=true;
+              all_pages.used[h]=all_pages.used[h]|l;
+              procs[newpid].pages[vp]=p;
+              for(;spi<64;++spi){
+                memcpy(buffer,(vp<<12)|(spi<<6),64);
+                load_pages(&procs[newpid].pages);
+                memcpy((vp<<12)|(spi<<6),buffer,64);
+                load_pages(&proc.pages);
+              }
+              break;
+            }
+          }
+          if(!fp){
+            for(;;){} //PANIC
+          }
+        }else{
+          procs[newpid].pages[vp]=0;
+        }
+      }
+      return;
+    }
+    newpid = (newpid+1)&127;
+  }
 }
 void sys$getpid(int b, int c, int d) {
   registers.a=proc.pid;
