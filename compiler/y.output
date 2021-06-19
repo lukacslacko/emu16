@@ -1,0 +1,2113 @@
+Terminals unused in grammar
+
+    BOOL
+    TRUE
+    FALSE
+    PASS
+    '%'
+
+
+Grammar
+
+    0 $accept: all_program $end
+
+    1 all_program: program
+
+    2 program: unit
+    3        | program unit
+
+    4 unit: fundef
+    5     | fundecl
+
+    6 type: BYTE
+    7     | WORD
+    8     | VOID
+    9     | type '*'
+
+   10 varname: ID
+   11        | '*' varname
+
+   12 vardecl: type ID
+   13        | type ID '=' expr
+
+   14 fundecl: type funname '(' arglist ')' ';'
+
+   15 fundef: type funname '(' arglist ')' body
+
+   16 arglist: %empty
+   17        | arg
+   18        | arglist ',' arg
+
+   19 arg: type argname
+
+   20 argname: ID
+
+   21 funname: ID
+
+   22 body: '{' statements '}'
+   23     | '{' '}'
+
+   24 statements: statement_semicolon
+   25           | statements statement_semicolon
+
+   26 statement_semicolon: statement ';'
+   27                    | curly_statement
+
+   28 curly_statement: IF '(' expr ')' body
+   29                | IF '(' expr ')' body ELSE body
+   30                | FOR '(' expr ';' expr ';' expr ')' body
+   31                | WHILE '(' expr ')' body
+
+   32 statement: vardecl
+   33          | expr
+   34          | RETURN expr
+
+   35 functioncall: functionname '(' params ')'
+
+   36 functionname: ID
+
+   37 params: %empty
+   38       | param
+   39       | params ',' param
+
+   40 param: expr
+
+   41 number: NUM
+   42       | HEXNUM
+   43       | BINNUM
+
+   44 expr: varname
+   45     | functioncall
+   46     | number
+   47     | varname '=' expr
+   48     | expr '+' expr
+   49     | expr '-' expr
+   50     | expr '*' expr
+   51     | expr '/' expr
+   52     | expr '&' expr
+   53     | expr '|' expr
+   54     | expr '^' expr
+   55     | '~' expr
+   56     | '-' expr
+   57     | '(' expr ')'
+   58     | '&' ID
+   59     | expr EQ expr
+   60     | expr NE expr
+   61     | expr GE expr
+   62     | expr LE expr
+   63     | expr GT expr
+   64     | expr LT expr
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '%' (37)
+    '&' (38) 52 58
+    '(' (40) 14 15 28 29 30 31 35 57
+    ')' (41) 14 15 28 29 30 31 35 57
+    '*' (42) 9 11 50
+    '+' (43) 48
+    ',' (44) 18 39
+    '-' (45) 49 56
+    '/' (47) 51
+    ';' (59) 14 26 30
+    '=' (61) 13 47
+    '^' (94) 54
+    '{' (123) 22 23
+    '|' (124) 53
+    '}' (125) 22 23
+    '~' (126) 55
+    error (256)
+    NUM <str> (258) 41
+    HEXNUM <str> (259) 42
+    BINNUM <str> (260) 43
+    ID <node> (261) 10 12 13 20 21 36 58
+    BOOL (262)
+    TRUE (263)
+    FALSE (264)
+    BYTE (265) 6
+    WORD (266) 7
+    VOID (267) 8
+    PASS (268)
+    IF (269) 28 29
+    ELSE (270) 29
+    FOR (271) 30
+    WHILE (272) 31
+    RETURN (273) 34
+    EQ (274) 59
+    NE (275) 60
+    GE (276) 61
+    GT (277) 63
+    LE (278) 62
+    LT (279) 64
+
+
+Nonterminals, with rules where they appear
+
+    $accept (41)
+        on left: 0
+    all_program <node> (42)
+        on left: 1
+        on right: 0
+    program <node> (43)
+        on left: 2 3
+        on right: 1 3
+    unit <node> (44)
+        on left: 4 5
+        on right: 2 3
+    type <node> (45)
+        on left: 6 7 8 9
+        on right: 9 12 13 14 15 19
+    varname <node> (46)
+        on left: 10 11
+        on right: 11 44 47
+    vardecl <node> (47)
+        on left: 12 13
+        on right: 32
+    fundecl <node> (48)
+        on left: 14
+        on right: 5
+    fundef <node> (49)
+        on left: 15
+        on right: 4
+    arglist <node> (50)
+        on left: 16 17 18
+        on right: 14 15 18
+    arg <node> (51)
+        on left: 19
+        on right: 17 18
+    argname <node> (52)
+        on left: 20
+        on right: 19
+    funname <node> (53)
+        on left: 21
+        on right: 14 15
+    body <node> (54)
+        on left: 22 23
+        on right: 15 28 29 30 31
+    statements <node> (55)
+        on left: 24 25
+        on right: 22 25
+    statement_semicolon <node> (56)
+        on left: 26 27
+        on right: 24 25
+    curly_statement <node> (57)
+        on left: 28 29 30 31
+        on right: 27
+    statement <node> (58)
+        on left: 32 33 34
+        on right: 26
+    functioncall <node> (59)
+        on left: 35
+        on right: 45
+    functionname <node> (60)
+        on left: 36
+        on right: 35
+    params <node> (61)
+        on left: 37 38 39
+        on right: 35 39
+    param <node> (62)
+        on left: 40
+        on right: 38 39
+    number <num> (63)
+        on left: 41 42 43
+        on right: 46
+    expr <node> (64)
+        on left: 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+        on right: 13 28 29 30 31 33 34 40 47 48 49 50 51 52 53 54 55 56 57 59 60 61 62 63 64
+
+
+State 0
+
+    0 $accept: • all_program $end
+
+    BYTE  shift, and go to state 1
+    WORD  shift, and go to state 2
+    VOID  shift, and go to state 3
+
+    all_program  go to state 4
+    program      go to state 5
+    unit         go to state 6
+    type         go to state 7
+    fundecl      go to state 8
+    fundef       go to state 9
+
+
+State 1
+
+    6 type: BYTE •
+
+    $default  reduce using rule 6 (type)
+
+
+State 2
+
+    7 type: WORD •
+
+    $default  reduce using rule 7 (type)
+
+
+State 3
+
+    8 type: VOID •
+
+    $default  reduce using rule 8 (type)
+
+
+State 4
+
+    0 $accept: all_program • $end
+
+    $end  shift, and go to state 10
+
+
+State 5
+
+    1 all_program: program •
+    3 program: program • unit
+
+    BYTE  shift, and go to state 1
+    WORD  shift, and go to state 2
+    VOID  shift, and go to state 3
+
+    $default  reduce using rule 1 (all_program)
+
+    unit     go to state 11
+    type     go to state 7
+    fundecl  go to state 8
+    fundef   go to state 9
+
+
+State 6
+
+    2 program: unit •
+
+    $default  reduce using rule 2 (program)
+
+
+State 7
+
+    9 type: type • '*'
+   14 fundecl: type • funname '(' arglist ')' ';'
+   15 fundef: type • funname '(' arglist ')' body
+
+    ID   shift, and go to state 12
+    '*'  shift, and go to state 13
+
+    funname  go to state 14
+
+
+State 8
+
+    5 unit: fundecl •
+
+    $default  reduce using rule 5 (unit)
+
+
+State 9
+
+    4 unit: fundef •
+
+    $default  reduce using rule 4 (unit)
+
+
+State 10
+
+    0 $accept: all_program $end •
+
+    $default  accept
+
+
+State 11
+
+    3 program: program unit •
+
+    $default  reduce using rule 3 (program)
+
+
+State 12
+
+   21 funname: ID •
+
+    $default  reduce using rule 21 (funname)
+
+
+State 13
+
+    9 type: type '*' •
+
+    $default  reduce using rule 9 (type)
+
+
+State 14
+
+   14 fundecl: type funname • '(' arglist ')' ';'
+   15 fundef: type funname • '(' arglist ')' body
+
+    '('  shift, and go to state 15
+
+
+State 15
+
+   14 fundecl: type funname '(' • arglist ')' ';'
+   15 fundef: type funname '(' • arglist ')' body
+
+    BYTE  shift, and go to state 1
+    WORD  shift, and go to state 2
+    VOID  shift, and go to state 3
+
+    $default  reduce using rule 16 (arglist)
+
+    type     go to state 16
+    arglist  go to state 17
+    arg      go to state 18
+
+
+State 16
+
+    9 type: type • '*'
+   19 arg: type • argname
+
+    ID   shift, and go to state 19
+    '*'  shift, and go to state 13
+
+    argname  go to state 20
+
+
+State 17
+
+   14 fundecl: type funname '(' arglist • ')' ';'
+   15 fundef: type funname '(' arglist • ')' body
+   18 arglist: arglist • ',' arg
+
+    ')'  shift, and go to state 21
+    ','  shift, and go to state 22
+
+
+State 18
+
+   17 arglist: arg •
+
+    $default  reduce using rule 17 (arglist)
+
+
+State 19
+
+   20 argname: ID •
+
+    $default  reduce using rule 20 (argname)
+
+
+State 20
+
+   19 arg: type argname •
+
+    $default  reduce using rule 19 (arg)
+
+
+State 21
+
+   14 fundecl: type funname '(' arglist ')' • ';'
+   15 fundef: type funname '(' arglist ')' • body
+
+    ';'  shift, and go to state 23
+    '{'  shift, and go to state 24
+
+    body  go to state 25
+
+
+State 22
+
+   18 arglist: arglist ',' • arg
+
+    BYTE  shift, and go to state 1
+    WORD  shift, and go to state 2
+    VOID  shift, and go to state 3
+
+    type  go to state 16
+    arg   go to state 26
+
+
+State 23
+
+   14 fundecl: type funname '(' arglist ')' ';' •
+
+    $default  reduce using rule 14 (fundecl)
+
+
+State 24
+
+   22 body: '{' • statements '}'
+   23     | '{' • '}'
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    BYTE    shift, and go to state 1
+    WORD    shift, and go to state 2
+    VOID    shift, and go to state 3
+    IF      shift, and go to state 31
+    FOR     shift, and go to state 32
+    WHILE   shift, and go to state 33
+    RETURN  shift, and go to state 34
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+    '}'     shift, and go to state 40
+
+    type                 go to state 41
+    varname              go to state 42
+    vardecl              go to state 43
+    statements           go to state 44
+    statement_semicolon  go to state 45
+    curly_statement      go to state 46
+    statement            go to state 47
+    functioncall         go to state 48
+    functionname         go to state 49
+    number               go to state 50
+    expr                 go to state 51
+
+
+State 25
+
+   15 fundef: type funname '(' arglist ')' body •
+
+    $default  reduce using rule 15 (fundef)
+
+
+State 26
+
+   18 arglist: arglist ',' arg •
+
+    $default  reduce using rule 18 (arglist)
+
+
+State 27
+
+   41 number: NUM •
+
+    $default  reduce using rule 41 (number)
+
+
+State 28
+
+   42 number: HEXNUM •
+
+    $default  reduce using rule 42 (number)
+
+
+State 29
+
+   43 number: BINNUM •
+
+    $default  reduce using rule 43 (number)
+
+
+State 30
+
+   10 varname: ID •
+   36 functionname: ID •
+
+    '('       reduce using rule 36 (functionname)
+    $default  reduce using rule 10 (varname)
+
+
+State 31
+
+   28 curly_statement: IF • '(' expr ')' body
+   29                | IF • '(' expr ')' body ELSE body
+
+    '('  shift, and go to state 52
+
+
+State 32
+
+   30 curly_statement: FOR • '(' expr ';' expr ';' expr ')' body
+
+    '('  shift, and go to state 53
+
+
+State 33
+
+   31 curly_statement: WHILE • '(' expr ')' body
+
+    '('  shift, and go to state 54
+
+
+State 34
+
+   34 statement: RETURN • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 55
+
+
+State 35
+
+   58 expr: '&' • ID
+
+    ID  shift, and go to state 56
+
+
+State 36
+
+   56 expr: '-' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 57
+
+
+State 37
+
+   11 varname: '*' • varname
+
+    ID   shift, and go to state 58
+    '*'  shift, and go to state 37
+
+    varname  go to state 59
+
+
+State 38
+
+   55 expr: '~' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 60
+
+
+State 39
+
+   57 expr: '(' • expr ')'
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 61
+
+
+State 40
+
+   23 body: '{' '}' •
+
+    $default  reduce using rule 23 (body)
+
+
+State 41
+
+    9 type: type • '*'
+   12 vardecl: type • ID
+   13        | type • ID '=' expr
+
+    ID   shift, and go to state 62
+    '*'  shift, and go to state 13
+
+
+State 42
+
+   44 expr: varname •
+   47     | varname • '=' expr
+
+    '='  shift, and go to state 63
+
+    $default  reduce using rule 44 (expr)
+
+
+State 43
+
+   32 statement: vardecl •
+
+    $default  reduce using rule 32 (statement)
+
+
+State 44
+
+   22 body: '{' statements • '}'
+   25 statements: statements • statement_semicolon
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    BYTE    shift, and go to state 1
+    WORD    shift, and go to state 2
+    VOID    shift, and go to state 3
+    IF      shift, and go to state 31
+    FOR     shift, and go to state 32
+    WHILE   shift, and go to state 33
+    RETURN  shift, and go to state 34
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+    '}'     shift, and go to state 64
+
+    type                 go to state 41
+    varname              go to state 42
+    vardecl              go to state 43
+    statement_semicolon  go to state 65
+    curly_statement      go to state 46
+    statement            go to state 47
+    functioncall         go to state 48
+    functionname         go to state 49
+    number               go to state 50
+    expr                 go to state 51
+
+
+State 45
+
+   24 statements: statement_semicolon •
+
+    $default  reduce using rule 24 (statements)
+
+
+State 46
+
+   27 statement_semicolon: curly_statement •
+
+    $default  reduce using rule 27 (statement_semicolon)
+
+
+State 47
+
+   26 statement_semicolon: statement • ';'
+
+    ';'  shift, and go to state 66
+
+
+State 48
+
+   45 expr: functioncall •
+
+    $default  reduce using rule 45 (expr)
+
+
+State 49
+
+   35 functioncall: functionname • '(' params ')'
+
+    '('  shift, and go to state 67
+
+
+State 50
+
+   46 expr: number •
+
+    $default  reduce using rule 46 (expr)
+
+
+State 51
+
+   33 statement: expr •
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 33 (statement)
+
+
+State 52
+
+   28 curly_statement: IF '(' • expr ')' body
+   29                | IF '(' • expr ')' body ELSE body
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 81
+
+
+State 53
+
+   30 curly_statement: FOR '(' • expr ';' expr ';' expr ')' body
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 82
+
+
+State 54
+
+   31 curly_statement: WHILE '(' • expr ')' body
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 83
+
+
+State 55
+
+   34 statement: RETURN expr •
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 34 (statement)
+
+
+State 56
+
+   58 expr: '&' ID •
+
+    $default  reduce using rule 58 (expr)
+
+
+State 57
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   56     | '-' expr •
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    $default  reduce using rule 56 (expr)
+
+
+State 58
+
+   10 varname: ID •
+
+    $default  reduce using rule 10 (varname)
+
+
+State 59
+
+   11 varname: '*' varname •
+
+    $default  reduce using rule 11 (varname)
+
+
+State 60
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   55     | '~' expr •
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    $default  reduce using rule 55 (expr)
+
+
+State 61
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   57     | '(' expr • ')'
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+    ')'  shift, and go to state 84
+
+
+State 62
+
+   12 vardecl: type ID •
+   13        | type ID • '=' expr
+
+    '='  shift, and go to state 85
+
+    $default  reduce using rule 12 (vardecl)
+
+
+State 63
+
+   47 expr: varname '=' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 86
+
+
+State 64
+
+   22 body: '{' statements '}' •
+
+    $default  reduce using rule 22 (body)
+
+
+State 65
+
+   25 statements: statements statement_semicolon •
+
+    $default  reduce using rule 25 (statements)
+
+
+State 66
+
+   26 statement_semicolon: statement ';' •
+
+    $default  reduce using rule 26 (statement_semicolon)
+
+
+State 67
+
+   35 functioncall: functionname '(' • params ')'
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    $default  reduce using rule 37 (params)
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    params        go to state 87
+    param         go to state 88
+    number        go to state 50
+    expr          go to state 89
+
+
+State 68
+
+   59 expr: expr EQ • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 90
+
+
+State 69
+
+   60 expr: expr NE • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 91
+
+
+State 70
+
+   61 expr: expr GE • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 92
+
+
+State 71
+
+   63 expr: expr GT • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 93
+
+
+State 72
+
+   62 expr: expr LE • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 94
+
+
+State 73
+
+   64 expr: expr LT • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 95
+
+
+State 74
+
+   53 expr: expr '|' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 96
+
+
+State 75
+
+   52 expr: expr '&' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 97
+
+
+State 76
+
+   54 expr: expr '^' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 98
+
+
+State 77
+
+   48 expr: expr '+' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 99
+
+
+State 78
+
+   49 expr: expr '-' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 100
+
+
+State 79
+
+   50 expr: expr '*' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 101
+
+
+State 80
+
+   51 expr: expr '/' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 102
+
+
+State 81
+
+   28 curly_statement: IF '(' expr • ')' body
+   29                | IF '(' expr • ')' body ELSE body
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+    ')'  shift, and go to state 103
+
+
+State 82
+
+   30 curly_statement: FOR '(' expr • ';' expr ';' expr ')' body
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+    ';'  shift, and go to state 104
+
+
+State 83
+
+   31 curly_statement: WHILE '(' expr • ')' body
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+    ')'  shift, and go to state 105
+
+
+State 84
+
+   57 expr: '(' expr ')' •
+
+    $default  reduce using rule 57 (expr)
+
+
+State 85
+
+   13 vardecl: type ID '=' • expr
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 106
+
+
+State 86
+
+   47 expr: varname '=' expr •
+   48     | expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 47 (expr)
+
+
+State 87
+
+   35 functioncall: functionname '(' params • ')'
+   39 params: params • ',' param
+
+    ')'  shift, and go to state 107
+    ','  shift, and go to state 108
+
+
+State 88
+
+   38 params: param •
+
+    $default  reduce using rule 38 (params)
+
+
+State 89
+
+   40 param: expr •
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 40 (param)
+
+
+State 90
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   59     | expr EQ expr •
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 59 (expr)
+
+
+State 91
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   60     | expr NE expr •
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 60 (expr)
+
+
+State 92
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   61     | expr GE expr •
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 61 (expr)
+
+
+State 93
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   63     | expr GT expr •
+   64     | expr • LT expr
+
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 63 (expr)
+
+
+State 94
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   62     | expr LE expr •
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 62 (expr)
+
+
+State 95
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+   64     | expr LT expr •
+
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 64 (expr)
+
+
+State 96
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   53     | expr '|' expr •
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 53 (expr)
+
+
+State 97
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   52     | expr '&' expr •
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 52 (expr)
+
+
+State 98
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   54     | expr '^' expr •
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 54 (expr)
+
+
+State 99
+
+   48 expr: expr • '+' expr
+   48     | expr '+' expr •
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 48 (expr)
+
+
+State 100
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   49     | expr '-' expr •
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 49 (expr)
+
+
+State 101
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   50     | expr '*' expr •
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    $default  reduce using rule 50 (expr)
+
+
+State 102
+
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   51     | expr '/' expr •
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    $default  reduce using rule 51 (expr)
+
+
+State 103
+
+   28 curly_statement: IF '(' expr ')' • body
+   29                | IF '(' expr ')' • body ELSE body
+
+    '{'  shift, and go to state 24
+
+    body  go to state 109
+
+
+State 104
+
+   30 curly_statement: FOR '(' expr ';' • expr ';' expr ')' body
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 110
+
+
+State 105
+
+   31 curly_statement: WHILE '(' expr ')' • body
+
+    '{'  shift, and go to state 24
+
+    body  go to state 111
+
+
+State 106
+
+   13 vardecl: type ID '=' expr •
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+
+    $default  reduce using rule 13 (vardecl)
+
+
+State 107
+
+   35 functioncall: functionname '(' params ')' •
+
+    $default  reduce using rule 35 (functioncall)
+
+
+State 108
+
+   39 params: params ',' • param
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    param         go to state 112
+    number        go to state 50
+    expr          go to state 89
+
+
+State 109
+
+   28 curly_statement: IF '(' expr ')' body •
+   29                | IF '(' expr ')' body • ELSE body
+
+    ELSE  shift, and go to state 113
+
+    $default  reduce using rule 28 (curly_statement)
+
+
+State 110
+
+   30 curly_statement: FOR '(' expr ';' expr • ';' expr ')' body
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+    ';'  shift, and go to state 114
+
+
+State 111
+
+   31 curly_statement: WHILE '(' expr ')' body •
+
+    $default  reduce using rule 31 (curly_statement)
+
+
+State 112
+
+   39 params: params ',' param •
+
+    $default  reduce using rule 39 (params)
+
+
+State 113
+
+   29 curly_statement: IF '(' expr ')' body ELSE • body
+
+    '{'  shift, and go to state 24
+
+    body  go to state 115
+
+
+State 114
+
+   30 curly_statement: FOR '(' expr ';' expr ';' • expr ')' body
+
+    NUM     shift, and go to state 27
+    HEXNUM  shift, and go to state 28
+    BINNUM  shift, and go to state 29
+    ID      shift, and go to state 30
+    '&'     shift, and go to state 35
+    '-'     shift, and go to state 36
+    '*'     shift, and go to state 37
+    '~'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    varname       go to state 42
+    functioncall  go to state 48
+    functionname  go to state 49
+    number        go to state 50
+    expr          go to state 116
+
+
+State 115
+
+   29 curly_statement: IF '(' expr ')' body ELSE body •
+
+    $default  reduce using rule 29 (curly_statement)
+
+
+State 116
+
+   30 curly_statement: FOR '(' expr ';' expr ';' expr • ')' body
+   48 expr: expr • '+' expr
+   49     | expr • '-' expr
+   50     | expr • '*' expr
+   51     | expr • '/' expr
+   52     | expr • '&' expr
+   53     | expr • '|' expr
+   54     | expr • '^' expr
+   59     | expr • EQ expr
+   60     | expr • NE expr
+   61     | expr • GE expr
+   62     | expr • LE expr
+   63     | expr • GT expr
+   64     | expr • LT expr
+
+    EQ   shift, and go to state 68
+    NE   shift, and go to state 69
+    GE   shift, and go to state 70
+    GT   shift, and go to state 71
+    LE   shift, and go to state 72
+    LT   shift, and go to state 73
+    '|'  shift, and go to state 74
+    '&'  shift, and go to state 75
+    '^'  shift, and go to state 76
+    '+'  shift, and go to state 77
+    '-'  shift, and go to state 78
+    '*'  shift, and go to state 79
+    '/'  shift, and go to state 80
+    ')'  shift, and go to state 117
+
+
+State 117
+
+   30 curly_statement: FOR '(' expr ';' expr ';' expr ')' • body
+
+    '{'  shift, and go to state 24
+
+    body  go to state 118
+
+
+State 118
+
+   30 curly_statement: FOR '(' expr ';' expr ';' expr ')' body •
+
+    $default  reduce using rule 30 (curly_statement)

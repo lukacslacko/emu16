@@ -1,0 +1,14 @@
+word fib(word n) {
+  word x = 6;
+  return x;
+//  word x;
+}
+
+void exit(word status) {
+//  __syscall(1, status, 0, 0);
+}
+
+// this is a comment.
+byte main() {
+//  exit(fib(5));  // return a number.
+}

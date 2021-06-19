@@ -1,0 +1,18 @@
+word fib(word n) {
+  word x;
+  word y;
+  if (n < 2) { word x; word z; return 1; }
+  return fib(n-1) + fib(n-2);
+  word x;
+}
+
+void exit(word status) {
+  __syscall(1, status, 0, 0);
+}
+
+void fib() {}
+
+// this is a comment.
+byte main() {
+  exit(fib(5));  // return a number.
+}
