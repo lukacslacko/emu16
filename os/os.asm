@@ -1,4 +1,5 @@
 .static 20 proc
+.static 8 registers
 .function main {
 and a, a
 bne #4
@@ -43,32 +44,52 @@ mov b, x
 mov bl, [a+#1]
 pop x
 mov a, x
+mov x, b
+mov b, d
+mov d, sp
+push x
+mov x, c
+push x
+mov x, b
+push x
 call a
-mov x, b
-push x
-mov x, a
-push x
-mov a, #!proc
-mov bl, [a]
-mov x, b
-swapxlxh
+mov d, #!registers
+clc
+mov a, #8
+add d, a
+mov sp, d
+pop x
+mov d, x
+pop x
+mov c, x
+pop x
 mov b, x
-mov bl, [a+#1]
 pop x
 mov a, x
+push x
+mov x, b
+push x
+mov b, #!proc
+mov al, [b]
+mov x, a
+swapxlxh
+mov a, x
+mov al, [b+#1]
 pop x
-mov sp, b
 mov b, x
+pop x
+mov sp, a
+mov a, x
 ret
 syscalls:
-bsl !void sys$reset()
+bsl !void sys$reset(int, int, int)
 hlt
-bsl !void sys$yield()
+bsl !void sys$yield(int, int, int)
 ret
-bsl !void sys$kill()
+bsl !void sys$kill(int, int, int)
 ret
-bsl !void sys$fork()
+bsl !void sys$fork(int, int, int)
 ret
-bsl !void sys$getpid()
+bsl !void sys$getpid(int, int, int)
 ret
 }
