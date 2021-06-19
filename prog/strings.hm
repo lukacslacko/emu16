@@ -1,0 +1,35 @@
+#include <stdint.hm>
+#include <stdlib.hm>
+void itoa(char* s, int n) {
+  if (n == 0) {
+    *s = 48;
+    *(s+1) = 0;
+    return;
+  }
+  bool negative = (n < 0);
+  if (negative) {
+    n = -n;
+  }
+  int i;
+
+  while (n > 0) {
+   div_t d=div(n,10);
+    *(s + i) = d.rem + 48;
+    i = i + 1;
+    n = d.quot;
+  }
+
+  if (negative) {
+    *(s + i) = 0x2d;
+    i = i+1;
+  }
+  int j;
+  char c;
+  while (j < i) {
+    c = *(s+i);
+    *(s+i) = *(s+j)
+    *(s+j) = c;
+  }
+  *(s + i + 1) = 0;
+}
+

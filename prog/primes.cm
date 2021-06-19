@@ -1,0 +1,9 @@
+#include <stdint.hm>
+bool is_prime(int p) {
+  int i;
+  for (i = 2; i < p-1; i++) {
+    if(p%i==0){return false;}
+  }
+  return true;
+}
+
