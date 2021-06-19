@@ -1,0 +1,10 @@
+#include <stdint.hm>
+
+struct proc_t {
+  int sp;
+  int pid;
+  pages_t pages;
+}
+
+static proc_t* proc;
+static proc_t procs[128];
