@@ -1,7 +1,7 @@
 struct proc_t {
+  int sp;
   int pid;
   pages_t pages;
-  int sp;
 }
 
 struct pages_t {
@@ -12,13 +12,22 @@ struct all_pages_t {
   byte available[16];
 }
 
+struct registers_t {
+  int a;
+  int b;
+  int c;
+  int d;
+}
+
+static registers_t registers;
 static all_pages_t all_pages;
+static proc_t proc;
 
 void init_pages() {
   all_pages.available[0] = 3;
 }
 
-bool get_pages(int n_pages, proc_t* proc) {
+bool get_pages(int n_pages) {
   int p;
   int i;
   for (; p<256; ++p) {
@@ -36,7 +45,7 @@ bool get_pages(int n_pages, proc_t* proc) {
   return false;
 }
 
-bool free_pages(proc_t* proc) {
+bool free_pages() {
   int i;
   for (; i<16; ++i) {
     byte p = proc.pages[i];
