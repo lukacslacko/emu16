@@ -21,7 +21,7 @@ struct registers_t {
 
 static registers_t registers;
 static all_pages_t all_pages;
-static proc_t proc;
+static proc_t* proc;
 
 void init_pages() {
   all_pages.available[0] = 3;
