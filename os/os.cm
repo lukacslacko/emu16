@@ -12,14 +12,6 @@ struct all_pages_t {
   byte available[16];
 }
 
-struct registers_t {
-  int a;
-  int b;
-  int c;
-  int d;
-}
-
-static registers_t registers;
 static all_pages_t all_pages;
 static proc_t* proc;
 
