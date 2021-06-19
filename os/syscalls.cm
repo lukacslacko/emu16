@@ -1,3 +1,5 @@
+#include "proc.hm"
+
 struct registers_t {
   int a;
   int b;
@@ -16,4 +18,5 @@ void sys$kill(int b, int c, int d) {
 void sys$fork(int b, int c, int d) {
 }
 void sys$getpid(int b, int c, int d) {
+  registers.a=proc.pid;
 }
