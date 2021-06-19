@@ -4,6 +4,7 @@ struct proc_t {
   int sp;
   int pid;
   pages_t pages;
+  bool new_child;
 }
 
 static proc_t* proc;
