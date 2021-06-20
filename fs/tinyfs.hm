@@ -1,1 +1,41 @@
+#include <string.hm>
+void write_eeprom(byte data, char eeprom, int addr);
+byte read_eeprom(char eeprom, int addr);
 
+void format(char eeprom) {
+  byte i;
+  for(;i<32;++i){
+    write_eeprom(0,eeprom,i);
+  }
+}
+
+struct file_t {
+  char name[9];
+  bool dir;
+  int size;
+  int start;
+  int cp;
+  byte iip;
+  char eeprom;
+}
+
+bool _read_byte(file_t* file, byte* r)
+
+bool get_next_filename(file_t* file, char* filename) {
+  if(file.dir){
+    int nf;
+    if(_read_byte(file,&nf)){
+      if(_read_byte(file,(&nf)+1)){
+        nf&=0x7fff;
+        byte i;
+        for(;i<9;++i){
+          *filename=read_eeprom(file.eeprom,nf);
+          filename++;
+          nf++;
+        }
+        return true;
+      }
+    }
+  }
+  return false;
+}
