@@ -7,15 +7,17 @@ void format(char eeprom) {
   for(;i<32;++i){
     write_eeprom(0,eeprom,i);
   }
+  write_eeprom(1,eeprom,16);
 }
 
 struct file_t {
-  char name[9];
+  char name[12];
   bool dir;
   int size;
   int start;
   int cp;
   byte iip;
+  byte flags;
   char eeprom;
 }
 
@@ -29,7 +31,7 @@ bool get_next_filename(file_t* file, char* filename) {
         nf&=0x7fff;
         byte i;
         int e=file.eeprom;
-        for(;i<9;++i){
+        for(;i<12;++i){
           *filename=read_eeprom(e,nf);
           filename++;
           nf++;
@@ -61,7 +63,7 @@ void rewind_by(file_t* file, int offset) {
         if(file.iip==16){return;}
       }
     }else{
-      if(file.iip==3){
+      if(file.iip==1){
         file.iip=255;
         int pp=read_eeprom(file.eeprom,file.cp)<<8;
         pp+=read_eeprom(file.eeprom,file.cp+1);
@@ -72,7 +74,7 @@ void rewind_by(file_t* file, int offset) {
 }
 
 void rename(file_t* file, char* filename) {
-  strncpy(file.name, filename, 9);
+  strncpy(file.name, filename, 12);
   byte i;
   int s=file.start;
   char e=file.eeprom;
@@ -80,4 +82,93 @@ void rename(file_t* file, char* filename) {
   for(;i<9;++i) {
     write_eeprom(*n,e,s+i);
   }
+}
+
+int write_file(file_t* file, int count, byte* data) {
+  if(file.dir){return 0;}
+  int i;
+  byte ps;
+  char e=file.eeprom;
+  {
+  int np;
+  byte h;
+  byte l;
+  byte ifp;
+  for(;count>0;--count) {
+    file.size++;
+    if(file.size==0x1000){
+      break;
+    }
+    file.iip++;
+    i++;
+    if(file.iip==0) {
+      if(file.cp==file.start){
+        ifp=15;
+      }else{
+        ifp=1;
+      }
+      if(file.start==0){
+        ifp+=16;
+      }
+      np=(read_eeprom(e,file.cp+ifp)&0x7f)<<8;
+      if(np==0) {
+        byte p;
+        bool fp;
+        for(;p<128;++p){
+          h=p>>3;
+          l=1<<(p&7);
+          ps=read_eeprom(e,h+16);
+          if((ps&l)==0){
+            fp=true;
+            ps|=l;
+            write_eeprom(ps,e,h+16);
+            break;
+          }
+        }
+        if(!fp){
+          file.iip=255;
+          break;
+        }
+      }
+      write_eeprom(np>>8,e,file.cp+ifp);
+      write_eeprom(file.cp>>8,e,np);
+      file.cp=np;
+      iip=2;
+    }
+    write_eeprom(*data,e,file.cp+file.iip);
+    data++;
+  }
+  }
+  write_eeprom(file.size,e,file.start+13);
+  ps=read_eeprom(e,file.start+12)&0x3f;
+  ps|=(file.size>>2)&0xc0;
+  write_eeprom(ps,e,file.start+12);
+  ps=read_eeprom(e,file.start+14)&0x7f;
+  ps|=(file.size>>3)&0x80;
+  write_eeprom(ps,e,file.start+14);
+  ps=read_eeprom(e,file.start+15)&0x7f;
+  ps|=(file.size>>4)&0x80;
+  write_eeprom(ps,e,file.start+15);
+  return i;
+}
+
+void set_flags(file_t* file, byte flags) {
+  flags&=0x3f;
+  byte f=read_eeprom(file.eeprom,file.start+12);
+  f&=0xc0;
+  f|=flags;
+  write_eeprom(f,file.eeprom,file.start+12);
+}
+
+int read_file(file_t* file, int count, byte* data) {
+  if(file.dir){return 0;}
+  int i;
+  for(;i<count;++i) {
+    if(_read_byte(file,data)){
+      data++;
+    }else{
+      break;
+    }
+  }
+  return i;
 }
