@@ -28,8 +28,9 @@ bool get_next_filename(file_t* file, char* filename) {
       if(_read_byte(file,(&nf)+1)){
         nf&=0x7fff;
         byte i;
+        int e=file.eeprom;
         for(;i<9;++i){
-          *filename=read_eeprom(file.eeprom,nf);
+          *filename=read_eeprom(e,nf);
           filename++;
           nf++;
         }
@@ -38,4 +39,44 @@ bool get_next_filename(file_t* file, char* filename) {
     }
   }
   return false;
+}
+
+void rewind(file_t* file) {
+  if((file.start&0x7fff)==0){
+    file.iip=32;
+  }else{
+    file.iip=16;
+  }
+  file.cp=file.start;
+}
+
+void rewind_by(file_t* file, int offset) {
+  for(;offset>0;--offset) {
+    iip--;
+    if(file.cp==file.start){
+      if((file.cp&0x7fff)==0){
+        if(file.iip==32){return;}
+      }else{
+        if(file.iip==16){return;}
+      }
+    }else{
+      if(file.iip==3){
+        file.iip=255;
+        int pp=read_eeprom(file.eeprom,file.cp)<<8;
+        pp+=read_eeprom(file.eeprom,file.cp+1);
+        file.cp=pp;
+      }
+    }
+  }
+}
+
+void rename(file_t* file, char* filename) {
+  strncpy(file.name, filename, 9);
+  byte i;
+  int s=file.start;
+  char e=file.eeprom;
+  char* n=file.name;
+  for(;i<9;++i) {
+    write_eeprom(*n,e,s+i);
+  }
 }
