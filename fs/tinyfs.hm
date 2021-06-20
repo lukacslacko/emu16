@@ -172,3 +172,25 @@ int read_file(file_t* file, int count, byte* data) {
   }
   return i;
 }
+
+void make_root(char eeprom, file_t* root) {
+  byte i;
+  int nf;
+  char* filename=&root.name
+  for(;i<12;++i){
+    *filename=read_eeprom(e,nf);
+    filename++;
+    nf++;
+  }
+  root.dir=true;
+  root.iip=32;
+  root.eeprom=eeprom;
+  root.cp=0;
+  root.start=0;
+  i=read_eeprom(eeprom,12);
+  root.flags=i&0x3f;
+  root.size=read_eeprom(eeprom,13);
+  root.size|=(i&0xc0)<<2;
+  root.size|=(read_eeprom(eeprom,14)&0x80)<<3;
+  root.size|=(read_eeprom(eeprom,15)&0x80)<<4;
+}
