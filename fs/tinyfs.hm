@@ -51,6 +51,7 @@ void rewind(file_t* file) {
 }
 
 void rewind_by(file_t* file, int offset) {
+  if(file.dir){return;}
   for(;offset>0;--offset) {
     iip--;
     if(file.cp==file.start){
