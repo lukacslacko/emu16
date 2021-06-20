@@ -196,3 +196,19 @@ void make_root(char eeprom, file_t* root) {
   r.size|=(read_eeprom(eeprom,15)&0x80)<<4;
   *root=r;
 }
+
+bool search(file_t* dir, char* filename) {
+  if(dir.dir) {
+    char fn[12];
+    strncpy(fn,filename,12);
+    file_t d=*dir;
+    rewind(&d);
+    char cf[12];
+    while(get_next_filename(&d,cf)){
+      if(memcmp(cf,fn,12)==0) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
