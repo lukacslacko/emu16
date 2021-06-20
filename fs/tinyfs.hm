@@ -222,7 +222,7 @@ bool open(file_t* dir, file_t* file, char* filename) {
       }
     }
     if(!ae) {
-      char e=dir.eeprom;
+      char e=d.eeprom;
       byte ps;
       byte h;
       byte l;
@@ -244,21 +244,21 @@ bool open(file_t* dir, file_t* file, char* filename) {
         return false;
       }
       byte p;
-      dir.size++;
-      if(dir.size==0x1000){
+      d.size++;
+      if(d.size==0x1000){
         break;
       }
-      dir.iip++;
-      if(dir.iip==0) {
-        if(dir.cp==dir.start){
+      d.iip++;
+      if(d.iip==0) {
+        if(d.cp==d.start){
           ifp=15;
         }else{
           ifp=1;
         }
-        if(dir.start==0){
+        if(d.start==0){
          ifp+=16;
         }
-        np=(read_eeprom(e,dir.cp+ifp)&0x7f)<<8;
+        np=(read_eeprom(e,d.cp+ifp)&0x7f)<<8;
         if(np==0) {
           for(p=0;p<128;++p){
             h=p>>3;
@@ -272,29 +272,29 @@ bool open(file_t* dir, file_t* file, char* filename) {
             }
           }
           if(!fp){
-            file.iip=255;
+            d.iip=255;
             return false;
           }
         }
-        write_eeprom(np>>8,e,dir.cp+ifp);
-        write_eeprom(dir.cp>>8,e,np);
+        write_eeprom(np>>8,e,d.cp+ifp);
+        write_eeprom(d.cp>>8,e,np);
         d.cp=np;
         d.iip=2;
       }
-      write_eeprom(nfp,e,&d.cp+file.iip);
+      write_eeprom(nfp,e,d.cp+d.iip);
       
-      write_eeprom(&d.size,e,dir.start+13);
-      ps=read_eeprom(e,&d.start+12)&0x3f;
-      ps|=(&d.size>>2)&0xc0;
-      write_eeprom(ps,e,&d.start+12);
-      ps=read_eeprom(e,&d.start+14)&0x7f;
-      ps|=(&d.size>>3)&0x80;
-      write_eeprom(ps,e,&d.start+14);
-      ps=read_eeprom(e,&d.start+15)&0x7f;
-      ps|=(&d.size>>4)&0x80;
-      write_eeprom(ps,e,&d.start+15);
+      write_eeprom(d.size,e,d.start+13);
+      ps=read_eeprom(e,d.start+12)&0x3f;
+      ps|=(d.size>>2)&0xc0;
+      write_eeprom(ps,e,d.start+12);
+      ps=read_eeprom(e,d.start+14)&0x7f;
+      ps|=(d.size>>3)&0x80;
+      write_eeprom(ps,e,d.start+14);
+      ps=read_eeprom(e,d.start+15)&0x7f;
+      ps|=(d.size>>4)&0x80;
+      write_eeprom(ps,e,d.start+15);
     }
-    rewind(&d)
+    rewind(&d);
   }
   return false;
 }
