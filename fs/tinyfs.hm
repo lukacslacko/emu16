@@ -31,9 +31,8 @@ bool get_next_filename(file_t* file, char* filename) {
       byte i;
       char e=file.eeprom;
       for(;i<12;++i){
-        *filename=read_eeprom(e,nf<<8);
+        *filename=read_eeprom(e,(nf<<8)+i);
         filename++;
-        nf++;
       }
       return true;
     }
@@ -295,6 +294,37 @@ bool open(file_t* dir, file_t* file, char* filename) {
       write_eeprom(ps,e,d.start+15);
     }
     rewind(&d);
+    for(;;){
+      byte nf;
+      int nfs;
+      if(_read_byte(&d,&nf)){
+        nfs=(nf&0x7f)<<8;
+        byte i;
+        char* filename=cf;
+        for(;i<12;++i){
+          *filename=read_eeprom(e,nfs+i);
+          filename++;
+        }
+      }else{break;}
+      if(memcmp(fn,cf,12)==0) {
+        file.dir=nf&0x80;
+        memcpy(file.name,cf,12);
+        file.iip=16;
+        file.start=nfs;
+        file.cp=nfs;
+        file.eeprom=e;
+        file.size=read_eeprom(e,nfs+13);
+        nf=read_eeprom(e,nfs+12);
+        file.flags=nf&0x3f;
+        file.size|=(nf&0xc0)<<2;
+        nf=read_eeprom(e,nfs+14);
+        file.size|=(nf&0x80)<<3;
+        nf=read_eeprom(e,nfs+15);
+        file.size|=(nf&0x80)<<4;
+        break;
+      }
+    }
+    return !ae;
   }
   return false;
 }
