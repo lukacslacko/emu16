@@ -463,6 +463,150 @@ dec d
 **1714 012c ram->i
 0*1713 012c ram->i
 
+mov al, #8
+
+mov bl, #8
+
+mov cl, #8
+
+mov dl, #8
+
+mov a, #16
+
+mov b, #16
+
+mov c, #16
+
+mov d, #16
+
+mov al, [a]
+
+mov al, [b]
+
+mov al, [c]
+
+mov al, [d]
+
+mov bl, [a]
+
+mov bl, [b]
+
+mov bl, [c]
+
+mov bl, [d]
+
+mov cl, [a]
+
+mov cl, [b]
+
+mov cl, [c]
+
+mov cl, [d]
+
+mov dl, [a]
+
+mov dl, [b]
+
+mov dl, [c]
+
+mov dl, [d]
+
+mov al, [a+#8]
+
+mov al, [b+#8]
+
+mov al, [c+#8]
+
+mov al, [d+#8]
+
+mov bl, [a+#8]
+
+mov bl, [b+#8]
+
+mov bl, [c+#8]
+
+mov bl, [d+#8]
+
+mov cl, [a+#8]
+
+mov cl, [b+#8]
+
+mov cl, [c+#8]
+
+mov cl, [d+#8]
+
+mov dl, [a+#8]
+
+mov dl, [b+#8]
+
+mov dl, [c+#8]
+
+mov dl, [d+#8]
+
+mov [a], al
+
+mov [b], al
+
+mov [c], al
+
+mov [d], al
+
+mov [a], bl
+
+mov [b], bl
+
+mov [c], bl
+
+mov [d], bl
+
+mov [a], cl
+
+mov [b], cl
+
+mov [c], cl
+
+mov [d], cl
+
+mov [a], dl
+
+mov [b], dl
+
+mov [c], dl
+
+mov [d], dl
+
+mov [a+#8], al
+
+mov [b+#8], al
+
+mov [c+#8], al
+
+mov [d+#8], al
+
+mov [a+#8], bl
+
+mov [b+#8], bl
+
+mov [c+#8], bl
+
+mov [d+#8], bl
+
+mov [a+#8], cl
+
+mov [b+#8], cl
+
+mov [c+#8], cl
+
+mov [d+#8], cl
+
+mov [a+#8], dl
+
+mov [b+#8], dl
+
+mov [c+#8], dl
+
+mov [d+#8], dl
+
 stp
 **7000 012c
 
