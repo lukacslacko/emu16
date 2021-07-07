@@ -2272,26 +2272,26 @@ hlt
 **7000 ffff
 
 not a
-**a000 050c
-**a001 160c
-**a002 b43c
-**a003 001c
-**a004 f43c
-**a005 101c
-**a006 067c
-**a007 b50c
-**a008 143c
-**a009 563c
-**a00a b01c
-**a00b a50c
-**a00c 043c
-**a00d a01c
-**a00e a50c
-**a00f b60c
-**a010 120c
-1*a011 020c
-0*a011 012c
-**a012 012c
+**a000 050c ah->u
+**a001 b43c eb->t
+**a002 001c t->ah
+**a003 150c al->u
+**a004 b43c eb->t
+**a005 101c t->al
+**a006 067c 0->v
+**a007 b50c pcl->u
+**a008 143c e1->t
+**a009 563c e5->v
+**a00a b01c t->pcl
+**a00b a50c pch->u
+**a00c 043c e0->t
+**a00d a01c t->pch
+**a00e a50c pch->u
+**a00f b60c pcl->v
+**a010 020c ah->z
+1*a011 120c al->z
+0*a011 012c ram->i
+**a012 012c ram->i
 
 or a, b
 **a100 150c
@@ -2390,26 +2390,26 @@ or b, a
 **a414 012c
 
 not b
-**a500 250c
-**a501 360c
-**a502 b43c
-**a503 201c
-**a504 f43c
-**a505 301c
-**a506 067c
-**a507 b50c
-**a508 143c
-**a509 563c
-**a50a b01c
-**a50b a50c
-**a50c 043c
-**a50d a01c
-**a50e a50c
-**a50f b60c
-**a510 320c
-1*a511 220c
-0*a511 012c
-**a512 012c
+**a500 250c bh->u
+**a501 b43c eb->t
+**a502 201c t->bh
+**a503 350c bl->u
+**a504 b43c eb->t
+**a505 301c t->bl
+**a506 067c 0->v
+**a507 b50c pcl->u
+**a508 143c e1->t
+**a509 563c e5->v
+**a50a b01c t->pcl
+**a50b a50c pch->u
+**a50c 043c e0->t
+**a50d a01c t->pch
+**a50e a50c pch->u
+**a50f b60c pcl->v
+**a510 220c bh->z
+1*a511 320c bl->z
+0*a511 012c ram->i
+**a512 012c ram->i
 
 or b, c
 **a600 350c
@@ -2508,26 +2508,26 @@ or c, b
 **a914 012c
 
 not c
-**aa00 450c
-**aa01 560c
-**aa02 b43c
-**aa03 401c
-**aa04 f43c
-**aa05 501c
-**aa06 067c
-**aa07 b50c
-**aa08 143c
-**aa09 563c
-**aa0a b01c
-**aa0b a50c
-**aa0c 043c
-**aa0d a01c
-**aa0e a50c
-**aa0f b60c
-**aa10 520c
-1*aa11 420c
-0*aa11 012c
-**aa12 012c
+**aa00 450c ch->u
+**aa01 b43c eb->t
+**aa02 401c t->ch
+**aa03 550c cl->u
+**aa04 b43c eb->t
+**aa05 501c t->cl
+**aa06 067c 0->v
+**aa07 b50c pcl->u
+**aa08 143c e1->t
+**aa09 563c e5->v
+**aa0a b01c t->pcl
+**aa0b a50c pch->u
+**aa0c 043c e0->t
+**aa0d a01c t->pch
+**aa0e a50c pch->u
+**aa0f b60c pcl->v
+**aa10 420c ch->z
+1*aa11 520c cl->z
+0*aa11 012c ram->i
+**aa12 012c ram->i
 
 or c, d
 **ab00 550c
@@ -2626,26 +2626,26 @@ or d, c
 **ae14 012c
 
 not d
-**af00 650c
-**af01 760c
-**af02 b43c
-**af03 601c
-**af04 f43c
-**af05 701c
-**af06 067c
-**af07 b50c
-**af08 143c
-**af09 563c
-**af0a b01c
-**af0b a50c
-**af0c 043c
-**af0d a01c
-**af0e a50c
-**af0f b60c
-**af10 720c
-1*af11 620c
-0*af11 012c
-**af12 012c
+**af00 650c dh->u
+**af01 b43c eb->t
+**af02 601c t->dh
+**af03 750c dl->u
+**af04 b43c eb->t
+**af05 701c t->dl
+**af06 067c 0->v
+**af07 b50c pcl->u
+**af08 143c e1->t
+**af09 563c e5->v
+**af0a b01c t->pcl
+**af0b a50c pch->u
+**af0c 043c e0->t
+**af0d a01c t->pch
+**af0e a50c pch->u
+**af0f b60c pcl->v
+**af10 620c dh->z
+1*af11 720c dl->z
+0*af11 012c ram->i
+**af12 012c ram->i
 
 and a, a
 **b000 067c
