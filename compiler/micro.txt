@@ -3771,34 +3771,34 @@ mov d, sp
 **ef0e 012c ram->i
 
 mov x, th
-**f800 8070
-**f801 9071
-**f802 067c
-**f803 b50c
-**f804 143c
-**f805 563c
-**f806 b01c
-**f807 a50c
-**f808 043c
-**f809 a01c
-**f80a a50c
-**f80b b60c
-**f80c 012c
+**f800 8073 t3->xh
+**f801 9072 t2->xl
+**f802 067c 0->v
+**f803 b50c pcl->u
+**f804 143c e1->t
+**f805 563c e5->v
+**f806 b01c t->pcl
+**f807 a50c pch->u
+**f808 043c e0->t
+**f809 a01c t->pch
+**f80a a50c pch->u
+**f80b b60c pcl->v
+**f80c 012c ram->i
 
 mov x, tl
-**f900 8072
-**f901 8073
-**f902 067c
-**f903 b50c
-**f904 143c
-**f905 563c
-**f906 b01c
-**f907 a50c
-**f908 043c
-**f909 a01c
-**f90a a50c
-**f90b b60c
-**f90c 012c
+**f900 8071 t1->xh
+**f901 9070 t0->xl
+**f902 067c 0->v
+**f903 b50c pcl->u
+**f904 143c e1->t
+**f905 563c e5->v
+**f906 b01c t->pcl
+**f907 a50c pch->u
+**f908 043c e0->t
+**f909 a01c t->pch
+**f90a a50c pch->u
+**f90b b60c pcl->v
+**f90c 012c ram->i
 
 setpindirs x
 **fc00 8404
