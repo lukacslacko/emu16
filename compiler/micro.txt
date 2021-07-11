@@ -2694,6 +2694,18 @@ add d, c
 push xl
 
 sez
+**9000 027c 0->z
+**9001 067c 0->v
+**9002 b50c pcl->u
+**9003 143c e1->t
+**9004 563c e5->v
+**9005 b01c t->pcl
+**9006 a50c pch->u
+**9007 043c e0->t
+**9008 a01c t->pch
+**9009 a50c pch->u
+**900a b60c pcl->v
+**900b 012c ram->i
 
 sub a, b
 **9100 150c al->u
@@ -2824,6 +2836,19 @@ sub b, a
 **9416 012c ram->i
 
 sec
+**9500 057c 0->u
+**9501 067c 0->v
+**9502 133c e1->c
+**9503 b50c pcl->u
+**9504 143c e1->t
+**9505 563c e5->v
+**9506 b01c t->pcl
+**9507 a50c pch->u
+**9508 043c e0->t
+**9509 a01c t->pch
+**950a a50c pch->u
+**950b b60c pcl->v
+**950c 012c ram->i
 
 sub b, c
 **9600 350c bl->u
@@ -2954,6 +2979,19 @@ sub c, b
 **9916 012c ram->i
 
 clz
+**9a00 057c 0->u
+**9a01 067c 0->v
+**9a02 123c e1->z
+**9a03 b50c pcl->u
+**9a04 143c e1->t
+**9a05 563c e5->v
+**9a06 b01c t->pcl
+**9a07 a50c pch->u
+**9a08 043c e0->t
+**9a09 a01c t->pch
+**9a0a a50c pch->u
+**9a0b b60c pcl->v
+**9a0c 012c ram->i
 
 sub c, d
 **9b00 550c cl->u
@@ -3084,6 +3122,18 @@ sub d, c
 **9e16 012c ram->i
 
 clc
+**9f00 037c 0->c
+**9f01 067c 0->v
+**9f02 b50c pcl->u
+**9f03 143c e1->t
+**9f04 563c e5->v
+**9f05 b01c t->pcl
+**9f06 a50c pch->u
+**9f07 043c e0->t
+**9f08 a01c t->pch
+**9f09 a50c pch->u
+**9f0a b60c pcl->v
+**9f0b 012c ram->i
 
 not a
 **a000 050c ah->u
