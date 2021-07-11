@@ -193,6 +193,31 @@ mov c, b
 **090e 012c ram->i
 
 ret
+**0a00 067c 0->v
+**0a01 d50c spl->u
+**0a02 343c e3->t
+**0a03 763c e7->v
+**0a04 d01c t->spl
+**0a05 c50c sph->u
+**0a06 243c e2->t
+**0a07 c01c t->sph
+**0a08 c50c sph->u
+**0a09 d60c spl->v
+**0a0a b02c ram->pcl
+**0a0b 067c 0->v
+**0a0c d50c spl->u
+**0a0d 343c e3->t
+**0a0e 763c e7->v
+**0a0f d01c t->spl
+**0a10 c50c sph->u
+**0a11 243c e2->t
+**0a12 c01c t->sph
+**0a13 c50c sph->u
+**0a14 d60c spl->v
+**0a15 a02c ram->pch
+**0a16 a50c pch->u
+**0a17 b60c pcl->v
+**0a18 012c ram->i
 
 mov c, d
 **0b00 640c dh->t
@@ -2302,6 +2327,28 @@ cmp d, c
 brl #16
 
 pop xh
+**8000 067c 0->v
+**8001 d50c spl->u
+**8002 343c e3->t
+**8003 763c e7->v
+**8004 d01c t->spl
+**8005 c50c sph->u
+**8006 243c e2->t
+**8007 c01c t->sph
+**8008 c50c sph->u
+**8009 d60c spl->v
+**800a 802c ram->xh
+**800b 067c 0->v
+**800c b50c pcl->u
+**800d 143c e1->t
+**800e 563c e5->v
+**800f b01c t->pcl
+**8010 a50c pch->u
+**8011 043c e0->t
+**8012 a01c t->pch
+**8013 a50c pch->u
+**8014 b60c pcl->v
+**8015 012c ram->i
 
 add a, b
 **8100 150c al->u
@@ -2432,6 +2479,28 @@ add b, a
 **8416 012c ram->i
 
 pop xl
+**8500 067c 0->v
+**8501 d50c spl->u
+**8502 343c e3->t
+**8503 763c e7->v
+**8504 d01c t->spl
+**8505 c50c sph->u
+**8506 243c e2->t
+**8507 c01c t->sph
+**8508 c50c sph->u
+**8509 d60c spl->v
+**850a 902c ram->xl
+**850b 067c 0->v
+**850c b50c pcl->u
+**850d 143c e1->t
+**850e 563c e5->v
+**850f b01c t->pcl
+**8510 a50c pch->u
+**8511 043c e0->t
+**8512 a01c t->pch
+**8513 a50c pch->u
+**8514 b60c pcl->v
+**8515 012c ram->i
 
 add b, c
 **8600 350c bl->u
@@ -4787,6 +4856,39 @@ mov x, tl
 push x
 
 pop x
+**fb00 067c 0->v
+**fb01 d50c spl->u
+**fb02 343c e3->t
+**fb03 763c e7->v
+**fb04 d01c t->spl
+**fb05 c50c sph->u
+**fb06 243c e2->t
+**fb07 c01c t->sph
+**fb08 c50c sph->u
+**fb09 d60c spl->v
+**fb0a 902c ram->xl
+**fb0b 067c 0->v
+**fb0c d50c spl->u
+**fb0d 343c e3->t
+**fb0e 763c e7->v
+**fb0f d01c t->spl
+**fb10 c50c sph->u
+**fb11 243c e2->t
+**fb12 c01c t->sph
+**fb13 c50c sph->u
+**fb14 d60c spl->v
+**fb15 802c ram->xh
+**fb16 067c 0->v
+**fb17 b50c pcl->u
+**fb18 143c e1->t
+**fb19 563c e5->v
+**fb1a b01c t->pcl
+**fb1b a50c pch->u
+**fb1c 043c e0->t
+**fb1d a01c t->pch
+**fb1e a50c pch->u
+**fb1f b60c pcl->v
+**fb20 012c ram->i
 
 setpindirs x
 **fc00 8404
