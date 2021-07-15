@@ -123,6 +123,40 @@ mov b, a
 **040e 012c ram->i
 
 syscall
+**0500 067c 0->v
+**0501 b50c pcl->u
+**0502 143c e1->t
+**0503 563c e5->v
+**0504 b01c t->pcl
+**0505 a50c pch->u
+**0506 043c e0->t
+**0507 a01c t->pch
+**0508 c50c sph->u
+**0509 d60c spl->v
+**050a a02c pch->ram
+**050b 057c 0->u
+**050c 143c e1->t
+**050d 553c e5->u
+**050e d01c t->spl
+**050f c60c sph->v
+**0510 043c e0->t
+**0511 c01c t->sph
+**0512 c50c sph->u
+**0513 d60c spl->v
+**0514 b02c pcl->ram
+**0515 057c 0->u
+**0516 143c e1->t
+**0517 553c e5->u
+**0518 d01c t->spl
+**0519 c60c sph->v
+**051a 043c e0->t
+**051b c01c t->sph
+**051c a07c 0->pch
+**051d b07c 0->pcl
+**051e a50c pch->u
+**051f b60c pcl->v
+**0520 00fc 0->v0
+**0521 012c ram->i
 
 mov b, c
 **0600 440c ch->t
@@ -2253,12 +2287,152 @@ jump d
 **6306 012c ram->i
 
 call a
+**6400 067c 0->v
+**6401 b50c pcl->u
+**6402 143c e1->t
+**6403 563c e5->v
+**6404 b01c t->pcl
+**6405 a50c pch->u
+**6406 043c e0->t
+**6407 a01c t->pch
+**6408 c50c sph->u
+**6409 d60c spl->v
+**640a a02c pch->ram
+**640b 057c 0->u
+**640c 143c e1->t
+**640d 553c e5->u
+**640e d01c t->spl
+**640f c60c sph->v
+**6410 043c e0->t
+**6411 c01c t->sph
+**6412 c50c sph->u
+**6413 d60c spl->v
+**6414 b02c pcl->ram
+**6415 057c 0->u
+**6416 143c e1->t
+**6417 553c e5->u
+**6418 d01c t->spl
+**6419 c60c sph->v
+**641a 043c e0->t
+**641b c01c t->sph
+**641c 040c ah->t
+**641d a01c t->pch
+**641e 140c al->t
+**641f b01c t->pcl
+**6420 a50c pch->u
+**6421 b60c pcl->v
+**6422 012c ram->i
 
 call b
+**6500 067c 0->v
+**6501 b50c pcl->u
+**6502 143c e1->t
+**6503 563c e5->v
+**6504 b01c t->pcl
+**6505 a50c pch->u
+**6506 043c e0->t
+**6507 a01c t->pch
+**6508 c50c sph->u
+**6509 d60c spl->v
+**650a a02c pch->ram
+**650b 057c 0->u
+**650c 143c e1->t
+**650d 553c e5->u
+**650e d01c t->spl
+**650f c60c sph->v
+**6510 043c e0->t
+**6511 c01c t->sph
+**6512 c50c sph->u
+**6513 d60c spl->v
+**6514 b02c pcl->ram
+**6515 057c 0->u
+**6516 143c e1->t
+**6517 553c e5->u
+**6518 d01c t->spl
+**6519 c60c sph->v
+**651a 043c e0->t
+**651b c01c t->sph
+**651c 240c bh->t
+**651d a01c t->pch
+**651e 340c bl->t
+**651f b01c t->pcl
+**6520 a50c pch->u
+**6521 b60c pcl->v
+**6522 012c ram->i
 
 call c
+**6600 067c 0->v
+**6601 b50c pcl->u
+**6602 143c e1->t
+**6603 563c e5->v
+**6604 b01c t->pcl
+**6605 a50c pch->u
+**6606 043c e0->t
+**6607 a01c t->pch
+**6608 c50c sph->u
+**6609 d60c spl->v
+**660a a02c pch->ram
+**660b 057c 0->u
+**660c 143c e1->t
+**660d 553c e5->u
+**660e d01c t->spl
+**660f c60c sph->v
+**6610 043c e0->t
+**6611 c01c t->sph
+**6612 c50c sph->u
+**6613 d60c spl->v
+**6614 b02c pcl->ram
+**6615 057c 0->u
+**6616 143c e1->t
+**6617 553c e5->u
+**6618 d01c t->spl
+**6619 c60c sph->v
+**661a 043c e0->t
+**661b c01c t->sph
+**661c 440c ch->t
+**661d a01c t->pch
+**661e 540c cl->t
+**661f b01c t->pcl
+**6620 a50c pch->u
+**6621 b60c pcl->v
+**6622 012c ram->i
 
 call d
+**6700 067c 0->v
+**6701 b50c pcl->u
+**6702 143c e1->t
+**6703 563c e5->v
+**6704 b01c t->pcl
+**6705 a50c pch->u
+**6706 043c e0->t
+**6707 a01c t->pch
+**6708 c50c sph->u
+**6709 d60c spl->v
+**670a a02c pch->ram
+**670b 057c 0->u
+**670c 143c e1->t
+**670d 553c e5->u
+**670e d01c t->spl
+**670f c60c sph->v
+**6710 043c e0->t
+**6711 c01c t->sph
+**6712 c50c sph->u
+**6713 d60c spl->v
+**6714 b02c pcl->ram
+**6715 057c 0->u
+**6716 143c e1->t
+**6717 553c e5->u
+**6718 d01c t->spl
+**6719 c60c sph->v
+**671a 043c e0->t
+**671b c01c t->sph
+**671c 640c dh->t
+**671d a01c t->pch
+**671e 740c dl->t
+**671f b01c t->pcl
+**6720 a50c pch->u
+**6721 b60c pcl->v
+**6722 012c ram->i
 
 jump #16
 
@@ -2269,6 +2443,63 @@ bc #8
 br #8
 
 call #16
+**6c00 067c 0->v
+**6c01 b50c pcl->u
+**6c02 143c e1->t
+**6c03 563c e5->v
+**6c04 b01c t->pcl
+**6c05 a50c pch->u
+**6c06 043c e0->t
+**6c07 a01c t->pch
+**6c08 a50c pch->u
+**6c09 b60c pcl->v
+**6c0a e02c ram->trh
+**6c0b 067c 0->v
+**6c0c b50c pcl->u
+**6c0d 143c e1->t
+**6c0e 563c e5->v
+**6c0f b01c t->pcl
+**6c10 a50c pch->u
+**6c11 043c e0->t
+**6c12 a01c t->pch
+**6c13 a50c pch->u
+**6c14 b60c pcl->v
+**6c15 f02c ram->trl
+**6c16 067c 0->v
+**6c17 b50c pcl->u
+**6c18 143c e1->t
+**6c19 563c e5->v
+**6c1a b01c t->pcl
+**6c1b a50c pch->u
+**6c1c 043c e0->t
+**6c1d a01c t->pch
+**6c1e c50c sph->u
+**6c1f d60c spl->v
+**6c20 a02c pch->ram
+**6c21 057c 0->u
+**6c22 143c e1->t
+**6c23 553c e5->u
+**6c24 d01c t->spl
+**6c25 c60c sph->v
+**6c26 043c e0->t
+**6c27 c01c t->sph
+**6c28 c50c sph->u
+**6c29 d60c spl->v
+**6c2a b02c pcl->ram
+**6c2b 057c 0->u
+**6c2c 143c e1->t
+**6c2d 553c e5->u
+**6c2e d01c t->spl
+**6c2f c60c sph->v
+**6c30 043c e0->t
+**6c31 c01c t->sph
+**6c32 e40c trh->t
+**6c33 a01c t->pch
+**6c34 f40c trl->t
+**6c35 b01c t->pcl
+**6c36 a50c pch->u
+**6c37 b60c pcl->v
+**6c38 012c ram->i
 
 bne #8
 
@@ -2631,6 +2862,27 @@ add c, b
 **8916 012c ram->i
 
 push xh
+**8a00 067c 0->v
+**8a01 b50c pcl->u
+**8a02 143c e1->t
+**8a03 563c e5->v
+**8a04 b01c t->pcl
+**8a05 a50c pch->u
+**8a06 043c e0->t
+**8a07 a01c t->pch
+**8a08 c50c sph->u
+**8a09 d60c spl->v
+**8a0a 802c xh->ram
+**8a0b 057c 0->u
+**8a0c 143c e1->t
+**8a0d 553c e5->u
+**8a0e d01c t->spl
+**8a0f c60c sph->v
+**8a10 043c e0->t
+**8a11 c01c t->sph
+**8a12 a50c pch->u
+**8a13 b60c pcl->v
+**8a14 012c ram->i
 
 add c, d
 **8b00 550c cl->u
@@ -2761,6 +3013,27 @@ add d, c
 **8e16 012c ram->i
 
 push xl
+**8f00 067c 0->v
+**8f01 b50c pcl->u
+**8f02 143c e1->t
+**8f03 563c e5->v
+**8f04 b01c t->pcl
+**8f05 a50c pch->u
+**8f06 043c e0->t
+**8f07 a01c t->pch
+**8f08 c50c sph->u
+**8f09 d60c spl->v
+**8f0a 902c xl->ram
+**8f0b 057c 0->u
+**8f0c 143c e1->t
+**8f0d 553c e5->u
+**8f0e d01c t->spl
+**8f0f c60c sph->v
+**8f10 043c e0->t
+**8f11 c01c t->sph
+**8f12 a50c pch->u
+**8f13 b60c pcl->v
+**8f14 012c ram->i
 
 sez
 **9000 027c 0->z
@@ -4854,6 +5127,37 @@ mov x, tl
 **f90c 012c ram->i
 
 push x
+**8a00 067c 0->v
+**8a01 b50c pcl->u
+**8a02 143c e1->t
+**8a03 563c e5->v
+**8a04 b01c t->pcl
+**8a05 a50c pch->u
+**8a06 043c e0->t
+**8a07 a01c t->pch
+**8a08 c50c sph->u
+**8a09 d60c spl->v
+**8a0a 802c xh->ram
+**8a0b 057c 0->u
+**8a0c 143c e1->t
+**8a0d 553c e5->u
+**8a0e d01c t->spl
+**8a0f c60c sph->v
+**8a10 043c e0->t
+**8a11 c01c t->sph
+**8a12 c50c sph->u
+**8a13 d60c spl->v
+**8a14 902c xl->ram
+**8a15 057c 0->u
+**8a16 143c e1->t
+**8a17 553c e5->u
+**8a18 d01c t->spl
+**8a19 c60c sph->v
+**8a1a 043c e0->t
+**8a1b c01c t->sph
+**8a1c a50c pch->u
+**8a1d b60c pcl->v
+**8a1e 012c ram->i
 
 pop x
 **fb00 067c 0->v
