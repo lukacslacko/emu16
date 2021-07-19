@@ -2470,6 +2470,44 @@ beq #8
 bc #8
 
 br #8
+**6b00 067c 0->v
+**6b01 b50c pcl->u
+**6b02 143c e1->t
+**6b03 563c e5->v
+**6b04 b01c t->pcl
+**6b05 a50c pch->u
+**6b06 043c e0->t
+**6b07 a01c t->pch
+**6b08 a50c pch->u
+**6b09 b60c pcl->v
+**6b0a f02c ram->trl
+**6b0b 067c 0->v
+**6b0c b50c pcl->u
+**6b0d 143c e1->t
+**6b0e 563c e5->v
+**6b0f b01c t->pcl
+**6b10 a50c pch->u
+**6b11 043c e0->t
+**6b12 a01c t->pch
+**6b13 f50c trl->u
+**6b14 067c 0->v
+**6b15 e63c ee->v
+**6b16 057c 0->u
+**6b17 243c e2->t
+**6b18 e01c t->trh
+**6b19 b50c pcl->u
+**6b1a f60c trl->v
+**6b1b 043c e0->t
+**6b1c 463c e4->v
+**6b1d b01c t->pcl
+**6b1e a50c pch->u
+**6b1f 063c e0->v
+**6b20 e50c trh->u
+**6b21 043c e0->t
+**6b22 a01c t->pch
+**6b23 a50c pch->u
+**6b24 b60c pcl->v
+**6b25 012c ram->i
 
 call #16
 **6c00 067c 0->v
