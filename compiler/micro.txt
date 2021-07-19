@@ -5644,61 +5644,61 @@ pop x
 **fb20 012c ram->i
 
 setpindirs x
-**fc00 8404
-**fc01 9405
-**fc02 067c
-**fc03 b50c
-**fc04 143c
-**fc05 563c
-**fc06 b01c
-**fc07 a50c
-**fc08 043c
-**fc09 a01c
-**fc0a a50c
-**fc0b b60c
-**fc0c 012c
+**fc00 8405 xh->t>pdh
+**fc01 9404 xl->t>pdl
+**fc02 067c 0->v
+**fc03 b50c pcl->u
+**fc04 143c e1->t
+**fc05 563c e5->v
+**fc06 b01c t->pcl
+**fc07 a50c pch->u
+**fc08 043c e0->t
+**fc09 a01c t->pch
+**fc0a a50c pch->u
+**fc0b b60c pcl->v
+**fc0c 012c ram->i
 
 setpins x
-**fd00 8406
-**fd01 9407
-**fd02 067c
-**fd03 b50c
-**fd04 143c
-**fd05 563c
-**fd06 b01c
-**fd07 a50c
-**fd08 043c
-**fd09 a01c
-**fd0a a50c
-**fd0b b60c
-**fd0c 012c
+**fd00 8407 xh->t>ph
+**fd01 9406 xl->t>pl
+**fd02 067c 0->v
+**fd03 b50c pcl->u
+**fd04 143c e1->t
+**fd05 563c e5->v
+**fd06 b01c t->pcl
+**fd07 a50c pch->u
+**fd08 043c e0->t
+**fd09 a01c t->pch
+**fd0a a50c pch->u
+**fd0b b60c pcl->v
+**fd0c 012c ram->i
 
 getpindirs x
-**fe00 8078
-**fe01 9079
-**fe02 067c
-**fe03 b50c
-**fe04 143c
-**fe05 563c
-**fe06 b01c
-**fe07 a50c
-**fe08 043c
-**fe09 a01c
-**fe0a a50c
-**fe0b b60c
-**fe0c 012c
+**fe00 8079 pdh->xh
+**fe01 9078 pdl->xl
+**fe02 067c 0->v
+**fe03 b50c pcl->u
+**fe04 143c e1->t
+**fe05 563c e5->v
+**fe06 b01c t->pcl
+**fe07 a50c pch->u
+**fe08 043c e0->t
+**fe09 a01c t->pch
+**fe0a a50c pch->u
+**fe0b b60c pcl->v
+**fe0c 012c ram->i
 
 getpins x
-**ff00 807a
-**ff01 907b
-**ff02 067c
-**ff03 b50c
-**ff04 143c
-**ff05 563c
-**ff06 b01c
-**ff07 a50c
-**ff08 043c
-**ff09 a01c
-**ff0a a50c
-**ff0b b60c
-**ff0c 012c
+**ff00 807b ph->xh
+**ff01 907a pl->xl
+**ff02 067c 0->v
+**ff03 b50c pcl->u
+**ff04 143c e1->t
+**ff05 563c e5->v
+**ff06 b01c t->pcl
+**ff07 a50c pch->u
+**ff08 043c e0->t
+**ff09 a01c t->pch
+**ff0a a50c pch->u
+**ff0b b60c pcl->v
+**ff0c 012c ram->i
