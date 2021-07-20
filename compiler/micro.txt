@@ -2504,17 +2504,19 @@ beq #8
 1*6923 a50c pch->u
 1*6924 b60c pcl->v
 1*6925 012c ram->i
-0*0900 067c 0->v
-0*6901 b50c pcl->u
-0*6902 143c e1->t
-0*6903 563c e5->v
-0*6904 b01c t->pcl
-0*6905 a50c pch->u
-0*6906 043c e0->t
-0*6907 a01c t->pch
-0*6908 a50c pch->u
-0*6909 b60c pcl->v
-0*690a 012c ram->i
+0*6900 057c 0->u
+0*6901 067c 0->v
+0*6902 163c e1->v
+0*6903 b50c pcl->u
+0*6904 143c e1->t
+0*6905 563c e5->v
+0*6906 b01c t->pcl
+0*6907 a50c pch->u
+0*6908 043c e0->t
+0*6909 a01c t->pch
+0*690a a50c pch->u
+0*690b b60c pcl->v
+0*690c 012c ram->i
 
 bc #8
 *16a00 067c 0->v
@@ -2555,17 +2557,19 @@ bc #8
 *16a23 a50c pch->u
 *16a24 b60c pcl->v
 *16a25 012c ram->i
-*00a00 067c 0->v
-*06a01 b50c pcl->u
-*06a02 143c e1->t
-*06a03 563c e5->v
-*06a04 b01c t->pcl
-*06a05 a50c pch->u
-*06a06 043c e0->t
-*06a07 a01c t->pch
-*06a08 a50c pch->u
-*06a09 b60c pcl->v
-*06a0a 012c ram->i
+*06a00 057c 0->u
+*06a01 067c 0->v
+*06a02 163c e1->v
+*06a03 b50c pcl->u
+*06a04 143c e1->t
+*06a05 563c e5->v
+*06a06 b01c t->pcl
+*06a07 a50c pch->u
+*06a08 043c e0->t
+*06a09 a01c t->pch
+*06a0a a50c pch->u
+*06a0b b60c pcl->v
+*06a0c 012c ram->i
 
 br #8
 **6b00 067c 0->v
@@ -2705,17 +2709,19 @@ bne #8
 0*6d23 a50c pch->u
 0*6d24 b60c pcl->v
 0*6d25 012c ram->i
-1*0d00 067c 0->v
-1*6d01 b50c pcl->u
-1*6d02 143c e1->t
-1*6d03 563c e5->v
-1*6d04 b01c t->pcl
-1*6d05 a50c pch->u
-1*6d06 043c e0->t
-1*6d07 a01c t->pch
-1*6d08 a50c pch->u
-1*6d09 b60c pcl->v
-1*6d0a 012c ram->i
+1*6d00 057c 0->u
+1*6d01 067c 0->v
+1*6d02 163c e1->v
+1*6d03 b50c pcl->u
+1*6d04 143c e1->t
+1*6d05 563c e5->v
+1*6d06 b01c t->pcl
+1*6d07 a50c pch->u
+1*6d08 043c e0->t
+1*6d09 a01c t->pch
+1*6d0a a50c pch->u
+1*6d0b b60c pcl->v
+1*6d0c 012c ram->i
 
 bnc #8
 *06e00 067c 0->v
@@ -2756,17 +2762,19 @@ bnc #8
 *06e23 a50c pch->u
 *06e24 b60c pcl->v
 *06e25 012c ram->i
-*10e00 067c 0->v
-*16e01 b50c pcl->u
-*16e02 143c e1->t
-*16e03 563c e5->v
-*16e04 b01c t->pcl
-*16e05 a50c pch->u
-*16e06 043c e0->t
-*16e07 a01c t->pch
-*16e08 a50c pch->u
-*16e09 b60c pcl->v
-*16e0a 012c ram->i
+*16e00 057c 0->u
+*16e01 067c 0->v
+*16e02 163c e1->v
+*16e03 b50c pcl->u
+*16e04 143c e1->t
+*16e05 563c e5->v
+*16e06 b01c t->pcl
+*16e07 a50c pch->u
+*16e08 043c e0->t
+*16e09 a01c t->pch
+*16e0a a50c pch->u
+*16e0b b60c pcl->v
+*16e0c 012c ram->i
 
 swapxlxh
 **6f00 840c xh->t
