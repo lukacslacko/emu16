@@ -1,12 +1,4 @@
-unit sr_ff(in s r, out q !q) {
-  use nand 7400;
-  s -> nand.in1a;
-  r -> nand.in2a;
-  nand.out1 -> q;
-  nand.out2 -> !q;
-  nand.out1 -> nand.in2b;
-  nand.out2 -> nand.in1b;
-}
+import sr_ff from flipflop.chip;
 
 unit main(in s r, out led) {
   use ff sr_ff;
