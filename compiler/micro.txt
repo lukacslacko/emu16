@@ -5373,12 +5373,108 @@ shl d
 **d315 012c ram->i
 
 shr a
+**d400 057c 0->u
+**d401 160c al->v
+**d402 c43c ec->t
+**d403 101c t->al
+**d404 e33c ee->c
+**d405 060c ah->v
+*0d406 c43c ec->t
+*1d406 f43c ef->t
+**d407 001c t->ah
+**d408 e33c ee->c
+**d409 067c 0->v
+**d40a b50c pcl->u
+**d40b 143c e1->t
+**d40c 563c e5->v
+**d40d b01c t->pcl
+**d40e a50c pch->u
+**d40f 043c e0->t
+**d410 a01c t->pch
+**d411 a50c pch->u
+**d412 b60c pcl->v
+**d413 120c al->z
+0*d414 012c ram->i
+1*d414 020c ah->z
+**d415 012c ram->i
 
 shr b
+**d500 057c 0->u
+**d501 360c bl->v
+**d502 c43c ec->t
+**d503 301c t->bl
+**d504 e33c ee->c
+**d505 260c bh->v
+*0d506 c43c ec->t
+*1d506 f43c ef->t
+**d507 201c t->bh
+**d508 e33c ee->c
+**d509 067c 0->v
+**d50a b50c pcl->u
+**d50b 143c e1->t
+**d50c 563c e5->v
+**d50d b01c t->pcl
+**d50e a50c pch->u
+**d50f 043c e0->t
+**d510 a01c t->pch
+**d511 a50c pch->u
+**d512 b60c pcl->v
+**d513 320c bl->z
+0*d514 012c ram->i
+1*d514 220c bh->z
+**d515 012c ram->i
 
 shr c
+**d600 057c 0->u
+**d601 560c cl->v
+**d602 c43c ec->t
+**d603 501c t->cl
+**d604 e33c ee->c
+**d605 460c ch->v
+*0d606 c43c ec->t
+*1d606 f43c ef->t
+**d607 401c t->ch
+**d608 e33c ee->c
+**d609 067c 0->v
+**d60a b50c pcl->u
+**d60b 143c e1->t
+**d60c 563c e5->v
+**d60d b01c t->pcl
+**d60e a50c pch->u
+**d60f 043c e0->t
+**d610 a01c t->pch
+**d611 a50c pch->u
+**d612 b60c pcl->v
+**d613 520c cl->z
+0*d614 012c ram->i
+1*d614 420c ch->z
+**d615 012c ram->i
 
 shr d
+**d700 057c 0->u
+**d701 760c dl->v
+**d702 c43c ec->t
+**d703 701c t->dl
+**d704 e33c ee->c
+**d705 660c dh->v
+*0d706 c43c ec->t
+*1d706 f43c ef->t
+**d707 601c t->dh
+**d708 e33c ee->c
+**d709 067c 0->v
+**d70a b50c pcl->u
+**d70b 143c e1->t
+**d70c 563c e5->v
+**d70d b01c t->pcl
+**d70e a50c pch->u
+**d70f 043c e0->t
+**d710 a01c t->pch
+**d711 a50c pch->u
+**d712 b60c pcl->v
+**d713 720c dl->z
+0*d714 012c ram->i
+1*d714 620c dh->z
+**d715 012c ram->i
 
 rol a
 
