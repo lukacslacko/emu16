@@ -5269,129 +5269,110 @@ xor d, d
 **cf0d 012c ram->i
 
 shl a
-**d000 067c
-**d001 150c
-**d002 c43c
-**d003 101c
-**d004 e33c
-**d005 050c
-*0d006 c43c
-*1d006 d43c
-**d007 001c
-**d008 e33c
-**d009 b50c
-**d00a 143c
-**d00b 563c
-**d00c b01c
-**d00d a50c
-**d00e 043c
-**d00f a01c
-**d010 a50c
-**d011 b60c
-**d012 120c
-1*d013 020c
-0*d013 012c
-**d014 012c
+**d000 067c 0->v
+**d001 150c al->u
+**d002 c43c ec->t
+**d003 101c t->al
+**d004 e33c ee->c
+**d005 050c ah->u
+*0d006 c43c ec->t
+*1d006 d43c ed->t
+**d007 001c t->ah
+**d008 e33c ee->c
+**d009 067c 0->v
+**d00a b50c pcl->u
+**d00b 143c e1->t
+**d00c 563c e5->v
+**d00d b01c t->pcl
+**d00e a50c pch->u
+**d00f 043c e0->t
+**d010 a01c t->pch
+**d011 a50c pch->u
+**d012 b60c pcl->v
+**d013 120c al->z
+0*d014 012c ram->i
+1*d014 020c ah->z
+**d015 012c ram->i
 
 shl b
-**d100 067c
-**d101 350c
-**d102 c43c
-**d103 301c
-**d104 e33c
-**d105 250c
-*0d106 c43c
-*1d106 d43c
-**d107 201c
-**d108 e33c
-**d109 b50c
-**d10a 143c
-**d10b 563c
-**d10c b01c
-**d10d a50c
-**d10e 043c
-**d10f a01c
-**d110 a50c
-**d111 b60c
-**d112 320c
-1*d113 220c
-0*d113 012c
-**d114 012c
+**d100 067c 0->v
+**d101 350c bl->u
+**d102 c43c ec->t
+**d103 301c t->bl
+**d104 e33c ee->c
+**d105 250c bh->u
+*0d106 c43c ec->t
+*1d106 d43c ed->t
+**d107 201c t->bh
+**d108 e33c ee->c
+**d109 067c 0->v
+**d10a b50c pcl->u
+**d10b 143c e1->t
+**d10c 563c e5->v
+**d10d b01c t->pcl
+**d10e a50c pch->u
+**d10f 043c e0->t
+**d110 a01c t->pch
+**d111 a50c pch->u
+**d112 b60c pcl->v
+**d113 320c bl->z
+0*d114 012c ram->i
+1*d114 220c bh->z
+**d115 012c ram->i
 
 shl c
-**d200 067c
-**d201 550c
-**d202 c43c
-**d203 501c
-**d204 e33c
-**d205 450c
-*0d206 c43c
-*1d206 d43c
-**d207 401c
-**d208 e33c
-**d209 b50c
-**d20a 143c
-**d20b 563c
-**d20c b01c
-**d20d a50c
-**d20e 043c
-**d20f a01c
-**d210 a50c
-**d211 b60c
-**d212 520c
-1*d213 420c
-0*d213 012c
-**d214 012c
+**d200 067c 0->v
+**d201 550c cl->u
+**d202 c43c ec->t
+**d203 501c t->cl
+**d204 e33c ee->c
+**d205 450c ch->u
+*0d206 c43c ec->t
+*1d206 d43c ed->t
+**d207 401c t->ch
+**d208 e33c ee->c
+**d209 067c 0->v
+**d20a b50c pcl->u
+**d20b 143c e1->t
+**d20c 563c e5->v
+**d20d b01c t->pcl
+**d20e a50c pch->u
+**d20f 043c e0->t
+**d210 a01c t->pch
+**d211 a50c pch->u
+**d212 b60c pcl->v
+**d213 520c cl->z
+0*d214 012c ram->i
+1*d214 420c ch->z
+**d215 012c ram->i
 
 shl d
-**d300 067c
-**d301 750c
-**d302 c43c
-**d303 701c
-**d304 e33c
-**d305 650c
-*0d306 c43c
-*1d306 d43c
-**d307 601c
-**d308 e33c
-**d309 b50c
-**d30a 143c
-**d30b 563c
-**d30c b01c
-**d30d a50c
-**d30e 043c
-**d30f a01c
-**d310 a50c
-**d311 b60c
-**d312 720c
-1*d313 620c
-0*d313 012c
-**d314 012c
+**d300 067c 0->v
+**d301 750c dl->u
+**d302 c43c ec->t
+**d303 701c t->dl
+**d304 e33c ee->c
+**d305 650c dh->u
+*0d306 c43c ec->t
+*1d306 d43c ed->t
+**d307 601c t->dh
+**d308 e33c ee->c
+**d309 067c 0->v
+**d30a b50c pcl->u
+**d30b 143c e1->t
+**d30c 563c e5->v
+**d30d b01c t->pcl
+**d30e a50c pch->u
+**d30f 043c e0->t
+**d310 a01c t->pch
+**d311 a50c pch->u
+**d312 b60c pcl->v
+**d313 720c dl->z
+0*d314 012c ram->i
+1*d314 620c dh->z
+**d315 012c ram->i
 
 shr a
-**d400 067c
-**d401 150c
-**d402 c43c
-**d403 101c
-**d404 e33c
-**d405 050c
-*0d406 c43c
-*1d406 d43c
-**d407 001c
-**d408 e33c
-**d409 b50c
-**d40a 143c
-**d40b 563c
-**d40c b01c
-**d40d a50c
-**d40e 043c
-**d40f a01c
-**d410 a50c
-**d411 b60c
-**d412 120c
-1*d413 020c
-0*d413 012c
-**d414 012c
 
 shr b
 
