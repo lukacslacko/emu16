@@ -1,6 +1,11 @@
 #include <vector>
 #include <string>
 
+// Usage:
+//
+// Parse* p = parse(tokenize("..."));
+// if (!p->ok()) { handle error }
+
 enum Kind {
   PROGRAM, STATEMENT, INCLUDE, STRING, UNIT, SIM, DECL, USE, CONN, WIRE, D, F
 };
@@ -61,7 +66,7 @@ std::vector<std::string> tokenize(std::string s) {
   return v;
 }
 
-Parse* parse(std::vector<std::string> tokens, int offset, Kind kind) {
+Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRAM) {
   Parse* result = new Parse(kind);
   if (kind == PROGRAM) {
     while (offset < tokens.size()) {
