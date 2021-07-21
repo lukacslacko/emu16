@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include "parse.h"
 class sim {
 public:
 	virtual ~sim(){}
@@ -18,8 +19,35 @@ private:
 	std::vector<std::pair<std::string, bool>> outputs;
 };
 sim::sim(std::string filename) {
-	std::string p = load(filename);
+	std::string np = load(filename);
+	std::string p;
 	std::unordered_set<std::string> i={filename};
+	while(true){
+		Parse* par = parse(tokenize(np));
+		if(!par->ok()) {
+			*(int*)0=0;
+		}
+		p+=np;
+		np="";
+		bool hi=false;
+		for(Parse* c : par->children()) {
+			if(c->kind()==INCLUDE) {
+				if(!i.contains(c->payload())) {
+					hi=true;
+					i.insert(c->payload());
+					np+=load(c->payload());
+				}
+			}
+		}
+		if(!hi) {
+			p+=np;
+			break;
+		}
+	}
+	Parse* par=parse(tokenize(p));
+	if(!par->ok()) {
+		*(int*)0=0;
+	}
 }
 void sim::step() {
 	
