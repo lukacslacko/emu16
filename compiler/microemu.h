@@ -1,5 +1,7 @@
 #include <cstdint>
 #include <string>
+#include <stdio.h>
+
 class microemu {
 public:
 	virtual ~microemu(){}
@@ -124,8 +126,54 @@ bool microemu::clock() {
 	}
 	return true;
 }
+
+int hex(char c) {
+	int v = c - '0';
+	if (v >= 0 && v <= 9) return v;
+	v = c - 'a';
+	if (v >= 0 && v <= 6) return 10 + v;
+	return 10 + (v - 'A');
+}
+
+int hex2(char* s) {
+	return 16 * hex1(s[0]) + hex1(s[1]);
+}
+
+int hex4(char* s) {
+	return 256 * hex2(s) + hex2(s+2);
+}
+
+void hexline(char* line, char* target) {
+	int n = hex2(line + 1);
+	int addr = hex4(line + 3);
+	for (int i = 0; i < n; ++i) {
+		target[n+i] = hex2(line + 7 + 2*i);
+	}
+}
+
+void loadhex(std::string filename, char* target) {
+	FILE* f = fopen(filename.c_str(), "r");
+	if (!f) {
+		printf("Cannot open '%s'\n", filename.c_str());
+		return;
+	}
+	int len = 0;
+	char* line = NULL;
+	while (getline(&line, &len, f) != -1) {
+		hexline(line, target);
+	}
+	fclose(f);
+	if (line) free(line);
+}
+
 void microemu::microemu(std::string e0, std::string e1, std::string bus, std::string sel) {
-	
+	loadhex(e0, eeprom);
+	loadhex(e1, eeprom + (1 << 19));
+	char tmp[1 << 18];
+	loadhex(bus, tmp);
+	for (int i = 0; i < (1 << 18); ++i) micro[i] = tmp[i];
+	loadhex(sel, tmp);
+	for (int i = 0; i < (1 << 18); ++i) micro[i] |= ((uint16_t)tmp[i]) << 8;
 }
 void microemu::reset() {
 	time=0;
