@@ -1,0 +1,12 @@
+program ::= { statement }
+statement ::= include | verilog | unit
+include ::= "include" filename ";"
+filename ::= /[^;]+/
+unit ::= "unit" decl "{" { description } "}"
+verilog ::= "verilog" decl "{" /[^}]*/ "}"
+decl ::= id "(" "in" { id } "," "out" { id } ")"
+id ::= /[^ .]+/
+description ::= use | connection
+use ::= "use" id id ";"
+connection ::= wire "->" wire
+wire ::= id | id "." id
