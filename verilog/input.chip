@@ -1,4 +1,4 @@
-import sr_ff from flipflop.chip;
+include flipflop.chip;
 
 unit main(in s r, out led) {
   use ff sr_ff;
