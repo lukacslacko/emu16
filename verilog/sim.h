@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <utility>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 class sim {
@@ -19,7 +18,8 @@ private:
 	std::vector<std::pair<std::string, bool>> outputs;
 };
 sim::sim(std::string filename) {
-	
+	std::string p = load(filename);
+	std::unordered_set<std::string> i={filename};
 }
 void sim::step() {
 	
