@@ -1,5 +1,5 @@
 program ::= { statement }
-statement ::= include | verilog | unit
+statement ::= include | verilog | unit | sim
 include ::= "include" filename ";"
 filename ::= /[^;]+/
 unit ::= "unit" decl "{" { description } "}"
@@ -10,3 +10,7 @@ description ::= use | connection
 use ::= "use" id id ";"
 connection ::= wire "->" wire
 wire ::= id | id "." id
+sim ::= "sim" decl "{" { d } { f } "}"
+d ::= num ":" num ":" { d } { f } ")"
+f ::= { ":" num } ")"
+num ::= /[0-9]+/
