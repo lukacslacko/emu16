@@ -121,6 +121,13 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
         offset = p->end();
         continue;
       }
+      if (tokens[offset] == "verilog") {
+        Parse* p = parse(tokens, offset+1, VERILOG);
+        if (!p->ok()) return p;
+        result->add(p);
+        offset = p->end();
+        continue;
+      }
       result->error("Bad token in PROGRAM", offset);
       return result;
     }
@@ -136,8 +143,35 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     result->set_end(offset+2);
     return result;
   }
+  if (kind == VERILOG) {
+    Parse* decl = parse(tokens, offset, DECL);
+    if (!decl->ok()) return decl;
+    result->add(decl);
+    offset = decl->end();
+    if (tokens[offset] != "{") {
+      result->error("Missing { in VERILOG after DECL", offset);
+      return result;
+    }
+    ++offset;
+    int depth = 1;
+    while (offset < tokens.size()) {
+      if (tokens[offset] == "{") ++depth;
+      if (tokens[offset] == "}") --depth;
+      if (depth == 0) break;
+      result->add(new Parse(tokens[offset]));
+      ++offset;
+    }
+    if (depth > 0) {
+      result->error("Unexpected EOF in VERILOG", offset);
+      return result;
+    }
+    ++offset;
+    result->set_end(offset);
+    return result;
+  }
   if (kind == UNIT) {
     Parse* decl = parse(tokens, offset, DECL);
+    if (!decl->ok()) return decl;
     result->add(decl);
     offset = decl->end();
     if (tokens[offset] != "{") {
