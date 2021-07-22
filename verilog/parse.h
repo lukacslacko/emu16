@@ -8,7 +8,7 @@
 // if (!p->ok()) { handle error }
 
 enum Kind {
-  PROGRAM, STATEMENT, INCLUDE, STRING, UNIT, SIM, DECL, USE, CONN, WIRE, D, F, INPUT, OUTPUT,
+  PROGRAM, STATEMENT, INCLUDE, STRING, UNIT, VERILOG, SIM, DECL, USE, CONN, WIRE, D, F, INPUT, OUTPUT,
 };
 
 std::string kind_name(Kind kind) {
@@ -18,6 +18,7 @@ std::string kind_name(Kind kind) {
     kind_name[INCLUDE] = "INCLUDE";
     kind_name[STRING] = "STRING";
     kind_name[UNIT] = "UNIT";
+    kind_name[VERILOG] = "VERILOG";
     kind_name[SIM] = "SIM";
     kind_name[DECL] = "DECL";
     kind_name[USE] = "USE";
