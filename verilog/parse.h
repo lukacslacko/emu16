@@ -211,7 +211,11 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     Parse* right = parse(tokens, offset+1, WIRE);
     if (!right->ok()) return right;
     result->add(right);
-    result->set_end(right->end());
+    if (right->end() < tokens.size() && tokens[right->end()] != ";") {
+      result->error("Missing ; in CONN", right->end());
+      return result;
+    }
+    result->set_end(right->end()+1);
     return result;
   }
   if (kind == WIRE) {
