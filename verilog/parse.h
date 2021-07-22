@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <map>
 
 // Usage:
 //
@@ -34,6 +35,31 @@ class Parse {
   bool ok() const { return !error_; }
   std::string error_message() const { return error_message_; }
   int error_offset() const { return error_offset_; }
+  
+  std::string debug(int indent = 0) {
+    std::map<Kind, std::string> kind_name;
+    kind_name[PROGRAM] = "PROGRAM";
+    kind_name[STATEMENT] = "STATEMENT";
+    kind_name[INCLUDE] = "INCLUDE";
+    kind_name[STRING] = "STRING";
+    kind_name[UNIT] = "UNIT";
+    kind_name[SIM] = "SIM";
+    kind_name[DECL] = "DECL";
+    kind_name[USE] = "USE";
+    kind_name[CONN] = "CONN";
+    kind_name[D] = "D";
+    kind_name[F] = "F";
+    if (!ok()) {
+      return error_message_ + " @ " + std::to_string(error_offset_);
+    }
+    std::string result = std::string(2*indent, ' ') + kind_name[kind_];
+    if (kind_ == STRING) { result += " "; result += payload + "\n"; return result; }
+    result += "\n";
+    for (int i = 0; i < children_.size(); ++i) {
+      result += children_[i].debug(indent + 2);
+    }
+    return result;
+  }
 
  private:
   Kind kind_;
