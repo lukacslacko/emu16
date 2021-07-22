@@ -77,7 +77,7 @@ std::vector<std::string> tokenize(std::string s) {
   std::vector<std::string> v;
   std::string curr;
   for (int i = 0; i < s.size(); ++i) {
-    if (s[i] == ' ' || s[i] == '\t') {
+    if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n') {
       if (curr.size() > 0) v.push_back(curr);
       curr = "";
       continue;
@@ -131,7 +131,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     Parse* decl = parse(tokens, offset, DECL);
     result->add(decl);
     offset = decl->end();
-    if (tokens[offset] != "}") {
+    if (tokens[offset] != "{") {
       result->error("Missing { in UNIT after DECL", offset);
       return result;
     }
