@@ -15,9 +15,11 @@ public:
 	bool getoutput(std::string, bool*);
 	std::vector<std::string> getinputs();
 	std::vector<std::string> getoutputs();
+	std::string debug() const { return parse_debug; }
 private:
 	std::vector<std::pair<std::string, bool>> inputs;
 	std::vector<std::pair<std::string, bool>> outputs;
+	std::string parse_debug;
 };
 bool sim::init(std::string filename) {
 	std::string np = load(filename);
@@ -46,6 +48,7 @@ bool sim::init(std::string filename) {
 		}
 	}
 	Parse* par=parse(tokenize(p));
+	parse_debug = par->debug();
 	if(!par->ok()) {
 		return false;
 	}
