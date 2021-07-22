@@ -135,6 +135,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
       result->error("Missing { in UNIT after DECL", offset);
       return result;
     }
+    ++offset;
     while (tokens[offset] != "}") {
       if (tokens[offset] == "use") {
         Parse* use = parse(tokens, offset+1, USE);
