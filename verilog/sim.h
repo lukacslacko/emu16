@@ -40,10 +40,10 @@ bool sim::init(std::string filename) {
 		bool hi=false;
 		for(Parse* c : par->children()) {
 			if(c->kind()==INCLUDE) {
-				if(!i.count(c->payload())) {
+				if(!i.count(c->children()[0]->payload())) {
 					hi=true;
-					i.insert(c->payload());
-					np+=load(c->payload());
+					i.insert(c->children()[0]->payload());
+					np+=load(c->children()[0]->payload());
 				}
 			}
 		}
