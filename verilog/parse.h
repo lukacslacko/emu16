@@ -54,7 +54,7 @@ std::vector<std::string> tokenize(std::string s) {
       curr = "";
       continue;
     }
-    if (s[i] == ',' || s[i] == ';' || s[i] == '(' || s[i] == '{' || s[i] == ')' || s[i] == '}') || s[i] == ':') {
+    if (s[i] == ',' || s[i] == ';' || s[i] == '(' || s[i] == '{' || s[i] == ')' || s[i] == '}' || s[i] == ':') {
       if (curr.size() > 0) v.push_back(curr);
       v.push_back(std::string(1, s[i]));
       curr = "";
@@ -80,7 +80,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
       result->error("Bad token in PROGRAM", offset);
       return result;
     }
-    result->end = offset;
+    result->set_end(offset);
     return result;
   }
   if (kind == INCLUDE) {

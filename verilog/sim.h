@@ -7,7 +7,8 @@
 class sim {
 public:
 	virtual ~sim(){}
-	sim(std::string);
+	sim();
+	void init(std::string);
 	virtual std::string load(std::string)=0;
 	void step();
 	bool setinput(std::string, bool);
@@ -18,7 +19,7 @@ private:
 	std::vector<std::pair<std::string, bool>> inputs;
 	std::vector<std::pair<std::string, bool>> outputs;
 };
-sim::sim(std::string filename) {
+void sim::init(std::string filename) {
 	std::string np = load(filename);
 	std::string p;
 	std::unordered_set<std::string> i={filename};
@@ -32,7 +33,7 @@ sim::sim(std::string filename) {
 		bool hi=false;
 		for(Parse* c : par->children()) {
 			if(c->kind()==INCLUDE) {
-				if(!i.contains(c->payload())) {
+				if(!i.count(c->payload())) {
 					hi=true;
 					i.insert(c->payload());
 					np+=load(c->payload());
@@ -55,16 +56,16 @@ void sim::step() {
 std::vector<std::string> sim::getinputs() {
 	std::vector<std::string> v;
 	v.reserve(inputs.size());
-	for (std::string s : inputs) {
-		v.push_back(s);
+	for (std::pair<std::string, bool> s : inputs) {
+		v.push_back(s.first);
 	}
 	return v;
 }
 std::vector<std::string> sim::getoutputs() {
 	std::vector<std::string> v;
 	v.reserve(outputs.size());
-	for (std::string s : outputs) {
-		v.push_back(s);
+	for (std::pair<std::string, bool> s : outputs) {
+		v.push_back(s.first);
 	}
 	return v;
 }
@@ -73,14 +74,14 @@ bool sim::setinput(std::string input, bool v) {
 	if(i==inputs.end()) {
 		return false;
 	}
-	*i=v;
+	i->second=v;
 	return true;
 }
-bool sim::setoutput(std::string output, bool* v) {
+bool sim::getoutput(std::string output, bool* v) {
 	std::vector<std::pair<std::string, bool>>::iterator i=std::find(outputs.begin(), outputs.end(), output);
 	if(i==outputs.end()) {
 		return false;
 	}
-	*v=*i;
+	*v=i->second;
 	return true;
 }
