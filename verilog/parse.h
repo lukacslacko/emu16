@@ -67,7 +67,7 @@ class Parse {
   int error_offset() const { return error_offset_; }
   
   std::string debug(int indent = 0) {
-    if (!ok()) {
+    if (error_message_.size() > 0) {
       return error_message_ + " @ " + std::to_string(error_offset_);
     }
     std::string result = std::string(2*indent, ' ') + kind_name(kind_);
