@@ -1,4 +1,4 @@
-include 7400.chip;
+include 7400;
 
 unit sr_ff(in s r, out q !q) {
   use nand 7400;
