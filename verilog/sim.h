@@ -8,7 +8,7 @@ class sim {
 public:
 	virtual ~sim(){}
 	sim();
-	void init(std::string);
+	bool init(std::string);
 	virtual std::string load(std::string)=0;
 	void step();
 	bool setinput(std::string, bool);
@@ -19,14 +19,14 @@ private:
 	std::vector<std::pair<std::string, bool>> inputs;
 	std::vector<std::pair<std::string, bool>> outputs;
 };
-void sim::init(std::string filename) {
+bool sim::init(std::string filename) {
 	std::string np = load(filename);
 	std::string p;
 	std::unordered_set<std::string> i={filename};
 	while(true){
 		Parse* par = parse(tokenize(np));
 		if(!par->ok()) {
-			*(int*)0=0;
+			return false;
 		}
 		p+=np;
 		np="";
@@ -47,8 +47,9 @@ void sim::init(std::string filename) {
 	}
 	Parse* par=parse(tokenize(p));
 	if(!par->ok()) {
-		*(int*)0=0;
+		return false;
 	}
+	return true;
 }
 void sim::step() {
 	
