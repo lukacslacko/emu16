@@ -4,7 +4,7 @@
 class FileSim : public sim {
   public:
   std::string load(std::string filename) override {
-    FILE* f = fopen(filename.c_str(), "r");
+    FILE* f = fopen((filename + ".chip").c_str(), "r");
 	  if (!f) {
 		  printf("Cannot open '%s'\n", filename.c_str());
 		  return "";
