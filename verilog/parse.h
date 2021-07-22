@@ -11,6 +11,24 @@ enum Kind {
   PROGRAM, STATEMENT, INCLUDE, STRING, UNIT, SIM, DECL, USE, CONN, WIRE, D, F, INPUT, OUTPUT,
 };
 
+std::string kind_name(Kind kind) {
+   std::map<Kind, std::string> kind_name;
+    kind_name[PROGRAM] = "PROGRAM";
+    kind_name[STATEMENT] = "STATEMENT";
+    kind_name[INCLUDE] = "INCLUDE";
+    kind_name[STRING] = "STRING";
+    kind_name[UNIT] = "UNIT";
+    kind_name[SIM] = "SIM";
+    kind_name[DECL] = "DECL";
+    kind_name[USE] = "USE";
+    kind_name[CONN] = "CONN";
+    kind_name[D] = "D";
+    kind_name[F] = "F";
+    kind_name[INPUT] = "INPUT";
+    kind_name[OUTPUT] = "OUTPUT";
+  return kind_name[kind];
+}
+
 class Parse {
  public:
   Parse(Kind kind) : kind_(kind), error_(false) {}
@@ -37,24 +55,10 @@ class Parse {
   int error_offset() const { return error_offset_; }
   
   std::string debug(int indent = 0) {
-    std::map<Kind, std::string> kind_name;
-    kind_name[PROGRAM] = "PROGRAM";
-    kind_name[STATEMENT] = "STATEMENT";
-    kind_name[INCLUDE] = "INCLUDE";
-    kind_name[STRING] = "STRING";
-    kind_name[UNIT] = "UNIT";
-    kind_name[SIM] = "SIM";
-    kind_name[DECL] = "DECL";
-    kind_name[USE] = "USE";
-    kind_name[CONN] = "CONN";
-    kind_name[D] = "D";
-    kind_name[F] = "F";
-    kind_name[INPUT] = "INPUT";
-    kind_name[OUTPUT] = "OUTPUT";
     if (!ok()) {
       return error_message_ + " @ " + std::to_string(error_offset_);
     }
-    std::string result = std::string(2*indent, ' ') + kind_name[kind_];
+    std::string result = std::string(2*indent, ' ') + kind_name(kind_);
     if (kind_ == STRING) { result += " "; result += payload_ + "\n"; return result; }
     result += "\n";
     for (int i = 0; i < children_.size(); ++i) {
@@ -232,6 +236,6 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     result->set_end(offset+3);
     return result;
   }
-  result->error("Could not parse requested kind", offset);
+  result->error(std::string("Could not parse requested kind ") + kind_name(kind), offset);
   return result;
 }
