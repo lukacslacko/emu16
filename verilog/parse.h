@@ -56,6 +56,12 @@ class Parse {
     error_offset_ = offset;
   }
   
+  Parse* bad(Parse* p) {
+    error_ = true;
+    add(p);
+    return this;
+  }
+  
   bool ok() const { return !error_; }
   std::string error_message() const { return error_message_; }
   int error_offset() const { return error_offset_; }
@@ -110,21 +116,21 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     while (offset < tokens.size()) {
       if (tokens[offset] == "include") {
         Parse* p = parse(tokens, offset+1, INCLUDE);
-        if (!p->ok()) return p;
+        if (!p->ok()) return result->bad(p);
         result->add(p);
         offset = p->end();
         continue;
       }
       if (tokens[offset] == "unit") {
         Parse* p = parse(tokens, offset+1, UNIT);
-        if (!p->ok()) return p;
+        if (!p->ok()) return result->bad(p);
         result->add(p);
         offset = p->end();
         continue;
       }
       if (tokens[offset] == "verilog") {
         Parse* p = parse(tokens, offset+1, VERILOG);
-        if (!p->ok()) return p;
+        if (!p->ok()) return result->bad(p);
         result->add(p);
         offset = p->end();
         continue;
@@ -146,7 +152,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
   }
   if (kind == VERILOG) {
     Parse* decl = parse(tokens, offset, DECL);
-    if (!decl->ok()) return decl;
+    if (!decl->ok()) return result->bad(decl);
     result->add(decl);
     offset = decl->end();
     if (tokens[offset] != "{") {
@@ -172,7 +178,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
   }
   if (kind == UNIT) {
     Parse* decl = parse(tokens, offset, DECL);
-    if (!decl->ok()) return decl;
+    if (!decl->ok()) return result->bad(decl);
     result->add(decl);
     offset = decl->end();
     if (tokens[offset] != "{") {
@@ -183,13 +189,13 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     while (offset < tokens.size() && tokens[offset] != "}") {
       if (tokens[offset] == "use") {
         Parse* use = parse(tokens, offset+1, USE);
-        if (!use->ok()) return use;
+        if (!use->ok()) return result->bad(use);
         result->add(use);
         offset = use->end();
         continue;
       }
       Parse* conn = parse(tokens, offset, CONN);
-      if (!conn->ok()) return conn;
+      if (!conn->ok()) return result->bad(conn);
       result->add(conn);
       offset = conn->end();
     }
@@ -243,7 +249,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
   }
   if (kind == CONN) {
     Parse* left = parse(tokens, offset, WIRE);
-    if (!left->ok()) return left;
+    if (!left->ok()) return result->bad(left);
     result->add(left);
     offset = left->end();
     if (offset >= tokens.size()) {
@@ -255,7 +261,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
       return result;
     }
     Parse* right = parse(tokens, offset+1, WIRE);
-    if (!right->ok()) return right;
+    if (!right->ok()) return result->bad(right);
     result->add(right);
     if (right->end() < tokens.size() && tokens[right->end()] != ";") {
       result->error("Missing ; in CONN", right->end());
