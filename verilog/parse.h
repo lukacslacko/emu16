@@ -34,6 +34,11 @@ class Parse {
   Parse(Kind kind) : kind_(kind), error_(false) {}
   Parse(std::string s) : kind_(STRING), payload_(s) {}
   Kind kind() const { return kind_; }
+  ~Parse() {
+    for ( Parse* child : children_ ) {
+      delete child;
+    }
+  }
 
   void add(Parse* parse) { children_.push_back(parse); }
   std::vector<Parse*>& children() { return children_; }
