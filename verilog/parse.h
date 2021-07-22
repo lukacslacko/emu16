@@ -53,9 +53,9 @@ class Parse {
       return error_message_ + " @ " + std::to_string(error_offset_);
     }
     std::string result = std::string(2*indent, ' ') + kind_name[kind_];
-    if (kind_ == STRING) { result += " "; result += payload + "\n"; return result; }
+    if (kind_ == STRING) { result += " "; result += payload_ + "\n"; return result; }
     result += "\n";
-    for (int i = 0; i < children_.size(); ++i) {
+    for (int i = 0; i < children_->size(); ++i) {
       result += children_[i].debug(indent + 2);
     }
     return result;
