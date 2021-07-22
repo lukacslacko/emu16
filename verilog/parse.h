@@ -245,6 +245,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     }
     result->add(new Parse(tokens[offset]));
     result->add(new Parse(tokens[offset+1]));
+    result->set_end(offset+3);
     return result;
   }
   if (kind == CONN) {
