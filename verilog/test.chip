@@ -1,0 +1,3 @@
+unit test(in a b,out c d) {
+	a -> c;
+}

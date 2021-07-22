@@ -10,7 +10,7 @@ class FileSim : public sim {
 		  return "";
 	  }
     std::string result;
-  	int len = 0;
+  	size_t len = 0;
 	  char* line = NULL;
 	  while (getline(&line, &len, f) != -1) {
 		  result += line;
