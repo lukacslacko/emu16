@@ -55,8 +55,8 @@ class Parse {
     std::string result = std::string(2*indent, ' ') + kind_name[kind_];
     if (kind_ == STRING) { result += " "; result += payload_ + "\n"; return result; }
     result += "\n";
-    for (int i = 0; i < children_->size(); ++i) {
-      result += children_[i].debug(indent + 2);
+    for (int i = 0; i < children_.size(); ++i) {
+      result += children_[i]->debug(indent + 2);
     }
     return result;
   }
