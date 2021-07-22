@@ -23,6 +23,7 @@ std::string kind_name(Kind kind) {
     kind_name[DECL] = "DECL";
     kind_name[USE] = "USE";
     kind_name[CONN] = "CONN";
+    kind_name[WIRE] = "WIRE";
     kind_name[D] = "D";
     kind_name[F] = "F";
     kind_name[INPUT] = "INPUT";
@@ -98,7 +99,7 @@ std::vector<std::string> tokenize(std::string s) {
       curr = "";
       continue;
     }
-    if (s[i] == ',' || s[i] == ';' || s[i] == '(' || s[i] == '{' || s[i] == ')' || s[i] == '}' || s[i] == ':') {
+    if (s[i] == ',' || s[i] == ';' || s[i] == '(' || s[i] == '{' || s[i] == ')' || s[i] == '}' || s[i] == ':' || s[i] == '.') {
       if (curr.size() > 0) v.push_back(curr);
       v.push_back(std::string(1, s[i]));
       curr = "";
