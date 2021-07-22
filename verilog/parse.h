@@ -153,6 +153,8 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
       result->add(conn);
       offset = conn->end();
     }
+    result->set_end(offset+1);
+    return result;
   }
   if (kind == DECL) {
     result->add(new Parse(tokens[offset]));
