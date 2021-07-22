@@ -8,7 +8,7 @@
 // if (!p->ok()) { handle error }
 
 enum Kind {
-  PROGRAM, STATEMENT, INCLUDE, STRING, UNIT, SIM, DECL, USE, CONN, WIRE, D, F
+  PROGRAM, STATEMENT, INCLUDE, STRING, UNIT, SIM, DECL, USE, CONN, WIRE, D, F, INPUT, OUTPUT,
 };
 
 class Parse {
@@ -49,6 +49,8 @@ class Parse {
     kind_name[CONN] = "CONN";
     kind_name[D] = "D";
     kind_name[F] = "F";
+    kind_name[INPUT] = "INPUT";
+    kind_name[OUTPUT] = "OUTPUT";
     if (!ok()) {
       return error_message_ + " @ " + std::to_string(error_offset_);
     }
@@ -100,7 +102,14 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
         Parse* p = parse(tokens, offset+1, INCLUDE);
         if (!p->ok()) return p;
         result->add(p);
-        offset += p->end();
+        offset = p->end();
+        continue;
+      }
+      if (tokens[offset] == "unit") {
+        Parse* p = parse(tokens, offset+1, UNIT);
+        if (!p->ok()) return p;
+        result->add(p);
+        offset = p->end();
         continue;
       }
       result->error("Bad token in PROGRAM", offset);
@@ -115,6 +124,100 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
       return result;
     }
     result->add(new Parse(tokens[offset]));
+    result->set_end(offset+2);
     return result;
   }
+  if (kind == UNIT) {
+    Parse* decl = parse(tokens, offset, DECL);
+    result->add(decl);
+    offset = decl->end();
+    if (tokens[offset] != "}") {
+      result->error("Missing { in UNIT after DECL", offset);
+      return result;
+    }
+    while (tokens[offset] != "}") {
+      if (tokens[offset] == "use") {
+        Parse* use = parse(tokens, offset+1, USE);
+        if (!use->ok()) return use;
+        result->add(use);
+        offset = use->end();
+        continue;
+      }
+      Parse* conn = parse(tokens, offset, CONN);
+      if (!conn->ok()) return conn;
+      result->add(conn);
+      offset = conn->end();
+    }
+  }
+  if (kind == DECL) {
+    result->add(new Parse(tokens[offset]));
+    if (tokens[offset+1] != "(") {
+      result->error("Missing ( in DECL", offset+1);
+      return result;
+    }
+    if (tokens[offset+2] != "in") {
+      result->error("Missing 'in' in DECL", offset+2);
+      return result;
+    }
+    int arg = 3;
+    Parse* input = new Parse(INPUT);
+    result->add(input);
+    while (tokens[offset+arg] != ",") {
+      if (tokens[offset+arg] == ")") {
+        result->error("Missing ',' in DECL", offset+arg);
+        return result;
+      }
+      input->add(new Parse(tokens[offset+arg]));
+      ++arg;
+    }
+    ++arg;
+    if (tokens[offset+arg] != "out") {
+      result->error("Missing out in DECL", offset+arg);
+      return result;
+    }
+    ++arg;
+    Parse* output = new Parse(OUTPUT);
+    result->add(output);
+    while (tokens[offset+arg] != ")") {
+      output->add(new Parse(tokens[offset+arg]));
+      ++arg;
+    }
+    result->set_end(offset+arg+1);
+    return result;
+  }
+  if (kind == USE) {
+    if (tokens[offset+2] != ";") {
+      result->error("Missing ; in USE", offset+2);
+      return result;
+    }
+    result->add(new Parse(tokens[offset]));
+    result->add(new Parse(tokens[offset+1]));
+    return result;
+  }
+  if (kind == CONN) {
+    Parse* left = parse(tokens, offset, WIRE);
+    if (!left->ok()) return left;
+    result->add(left);
+    offset = left->end();
+    if (tokens[offset] != "->") {
+      result->error("Missing -> in CONN", offset);
+    }
+    Parse* right = parse(tokens, offset+1, WIRE);
+    if (!right->ok()) return right;
+    result->add(right);
+    result->set_end(right->end());
+    return result;
+  }
+  if (kind == WIRE) {
+    result->add(new Parse(tokens[offset]));
+    if (tokens[offset+1] != ".") {
+      result->set_end(offset+1);
+      return result;
+    }
+    result->add(new Parse(tokens[offset+2]));
+    result->set_end(offset+3);
+    return result;
+  }
+  result->error("Could not parse requested kind", offset);
+  return result;
 }
