@@ -1,4 +1,4 @@
-include flipflop.chip;
+include flipflop;
 
 unit main(in s r, out led) {
   use ff sr_ff;
