@@ -136,7 +136,7 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
       return result;
     }
     ++offset;
-    while (tokens[offset] != "}") {
+    while (offset < tokens.size() && tokens[offset] != "}") {
       if (tokens[offset] == "use") {
         Parse* use = parse(tokens, offset+1, USE);
         if (!use->ok()) return use;
@@ -200,8 +200,13 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     if (!left->ok()) return left;
     result->add(left);
     offset = left->end();
+    if (offset >= tokens.size()) {
+      result->error("Unexpected EOF in CONN", offset);
+      return result;
+    }
     if (tokens[offset] != "->") {
       result->error("Missing -> in CONN", offset);
+      return result;
     }
     Parse* right = parse(tokens, offset+1, WIRE);
     if (!right->ok()) return right;
@@ -210,6 +215,10 @@ Parse* parse(std::vector<std::string> tokens, int offset = 0, Kind kind = PROGRA
     return result;
   }
   if (kind == WIRE) {
+    if (offset >= tokens.size() - 1) {
+      result->error("Unexpected EOF in WIRE", offset);
+      return result;
+    }
     result->add(new Parse(tokens[offset]));
     if (tokens[offset+1] != ".") {
       result->set_end(offset+1);
